@@ -1,0 +1,103 @@
+%--------1---------2---------3---------4---------5---------6---------7---------8---------9---------1---------2---------3---------4---------5---------6
+%23456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+
+\chapter{Introduction}
+\label{chap:intro}
+\glsresetall
+
+Proteins are essential for every life on Earth because the majority of proteins have important biological functions. 
+The structure of a protein is correlated with the function of this protein.
+The failure of a protein to assume its intended structure can result in diseases, such as Alzheimer's disease and cancer
+		\cite{selkoe2004cell,porta2014cancer3d}.
+This thesis proposes a new computational method to derive information for studying protein structure from a specially designed experiment.
+
+\Gls{SASA} of a protein is the surface area of this protein that is accessible to a solvent such as water.
+\Gls{SASA} helps for studying protein structure because \gls{SASA} reduces the number of plausible protein structures to explore.
+Higher spatial resolution of \gls{SASA} further reduces such number of plausible protein structures.
+\Cref{fig:intro:SASA} shows the concept of \gls{SASA}.
+\begin{figure}	
+\begin{center}
+\includegraphics[width=0.8\textwidth]{img/tmp_SASA.png}	
+\end{center}
+\caption[An illustration of the concept of \gls{SASA}.]{
+         An illustration of the concept of \gls{SASA}. 
+\label{fig:intro:SASA}}
+\end{figure}
+\Gls{FPOP}, a special experiment for studying protein structure, can probe the \gls{SASA} of a protein. 
+\Gls{FPOP} oxidizes residues on a protein such that the extent of oxidation on a residue is positively correlated with the solvent accessibility of this residue.
+Thus, the pattern of oxidation on a protein is correlated with the \gls{SASA} of this protein.
+Thus, the spatial resolution of such pattern of oxidation determines the spatial resolution of such \gls{SASA}. 
+\Gls{ox1} is observed as a mass-shift of around \(+16\si{\dalton}\) or more precisely around \(+15.99\si{\dalton}\).
+\Gls{FPOP} can be tuned so that the oxidation caused by such \gls{FPOP} mainly consists of \gls{ox1} \cite{gau2011advancement}.
+
+Without loss of generality, let us assume that the sequence of our peptide of interest is \texttt{VEADIAGHGQEVLIR}.
+Denote the unoxidized form of \texttt{VEADIAGHGQEVLIR} by \texttt{(VEADIAGHGQEVLIR)}.
+Denote all \gls{mono-oxidized} forms of \texttt{VEADIAGHGQEVLIR} by \texttt{(VEADIAGHGQEVLIR)(+16)}.
+The oxidation site of \texttt{(VEADIAGHGQEVLIR)(+16)} can be located on any of its residues.
+For example, \texttt{(VEADIAGHGQEVLIR)(+16)} can be any of the following: 
+	\texttt{(V)(+16)EADIAGHGQEVLIR}, \texttt{V(E)(+16)ADIAGHGQEVLIR}, \texttt{VE(A)(+16)DIAGHGQEVLIR}, etc.
+\Gls{LC-MS} is an analytical technique that first separates a mixture of analytes by \gls{RT} and then analyzes each analyte by \gls{MS}. 
+\Cref{fig:intro:heatmap-unoxidized-vs-mono-oxidized} 
+		shows both the unoxidized form of and the \gls{mono-oxidized} forms of \texttt{VEADIAGHGQEVLIR} detected in one run of \gls{LC-MS}. 
+In such run, the relative frequency that \texttt{VEADIAGHGQEVLIR} as a whole is oxidized can be estimated to be
+	the quantity of \texttt{(VEADIAGHGQEVLIR)(+16)} divided by the quantity of both \texttt{(VEADIAGHGQEVLIR)} and \texttt{(VEADIAGHGQEVLIR)(+16)}.
+\begin{figure}
+\includegraphics[trim=0 115mm 0 0,clip=true,width=\textwidth]{img/intro-heatmap-printed.pdf}
+\caption[
+	A heatmap showing both the unoxidized form of and the \gls{mono-oxidized} forms of \texttt{VEADIAGHGQEVLIR} in \gls{MS1}.]{
+	A heatmap showing both the unoxidized form of and the \gls{mono-oxidized} forms of \texttt{VEADIAGHGQEVLIR} in \gls{MS1}.
+	The unoxidized form and the \gls{mono-oxidized} forms both have a charge state of 3 and are thus approximately \((15.99\div3)\si{\dalton}\) apart in \gls{m/z}.
+	\label{fig:intro:heatmap-unoxidized-vs-mono-oxidized}
+	}
+\end{figure} 
+Spatially more granular quantitation of \gls{ox1} results in higher spatial resolution of the \gls{SASA} derived from such quantitation of oxidation.
+Thus, ideally, researchers would like to quantitate the extent of oxidation on each residue of \texttt{VEADIAGHGQEVLIR}.
+Equivalently, researchers would like to quantitate each form of \gls{mono-oxidized} \texttt{VEADIAGHGQEVLIR}.
+Unfortunately, current technologies and methods can quantitate the following at best:
+	the mixture of all \gls{mono-oxidized} forms of \texttt{VEADIAGHGQEVLIR} as a whole relative to the unoxidized form of \texttt{VEADIAGHGQEVLIR}.
+Such quantitation is qualified to be at peptide level. 
+Any quantitation that is spatially more granular than such peptide-level quantitation is qualified to be at subpeptide level.
+Quantitation of oxidation at subpeptide level is challenging.
+My thesis proposes a method for quantitating oxidation at subpeptide level using \gls{MS/MS}. 
+
+\Gls{MS/MS} is a commonly used technology in \gls{MS}.
+\Gls{MS/MS} can fragment \texttt{VEADIAGHGQEVLIR} into the suffixes of \texttt{VEADIAGHGQEVLIR} such as \texttt{R}, \texttt{IR}, \texttt{LIR}, etc.
+\texttt{R} is referred to as \(\texttt{y}_1\) ion, \texttt{IR} is referred to as \(\texttt{y}_2\) ion, \texttt{LIR} is referred to as \(\texttt{y}_3\) ion, etc.
+Each of these y-ions will form peaks in an \gls{MS2} spectrum at its corresponding mass-to-charge ratio (\gls{m/z})
+		(\cref{fig:intro:unox-vs-oxid-VEADIAGHGQEVLIR}).
+When an amino acid is \gls{mono-oxidized}, the mass of the y-ion containing the \gls{mono-oxidized} amino acid is shifted by approximately \(+16\si{\dalton}\) (\cref{fig:intro:unox-vs-oxid-VEADIAGHGQEVLIR}).
+Thus, the \gls{m/z} of this y-ion will be shifted by approximately \(+\frac{16}{z}\), where \(z\) is the charge state of this y-ion.
+\Cref{fig:intro:zoomed-in-unox-vs-oxid-VEADIAGHGQEVLIR} illustrates a local region of the \gls{MS2} spectrum of a \gls{mono-oxidized} peptide.
+However, the \gls{mono-oxidized} peptide is a mixture of different forms because different amino acids can be oxidized.
+Our task is to derive the proportion of each of these forms.
+Denote unoxidized \(\texttt{y}_i\) by \(\texttt{y}_i\) and \gls{mono-oxidized} \(\texttt{y}_i\) by \(\texttt{y}_i'\).
+Let \(y_i\) be the quantity of \(\texttt{y}_i\), and let \(y_i'\) be the quantity of \(\texttt{y}_i'\).
+Let \(\phi_i = \frac{y_i'}{y_i+y_i'}\).
+Then, \(\phi_i\) is the proportion of the \gls{mono-oxidized} forms that have the oxidation on the last \(i\) amino acids.
+Thus, \(\phi_i - \phi_{i-1}\) is the proportion of these forms that have the oxidation on the \(i\)\textsuperscript{th}-last amino acid.
+In general, \(\phi_i - \phi_j\) is the proportion of these forms that have the oxidation inclusively between the 
+		\(i\)\textsuperscript{th}-last and \((j+1)\)\textsuperscript{th}-last amino acids.
+\Cref{chap:oxlvl} of this thesis presents a novel algorithm that uses such \(\phi_i - \phi_j\) to quantitate oxidation at subpeptide level.
+
+\begin{figure}
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{img/intro-ms2-spec1.png}
+\caption[
+	A mixture \gls{MS2} spectrum of \gls{mono-oxidized} \texttt{VEADIAGHGQEVLIR}.]{
+	A mixture \gls{MS2} spectrum of \gls{mono-oxidized} \texttt{VEADIAGHGQEVLIR}.
+	The vertical axis represents absolute intensity.
+\label{fig:intro:unox-vs-oxid-VEADIAGHGQEVLIR}}
+\end{figure}
+\begin{figure}[H]
+\centering{\includegraphics[width=\textwidth]{img/intro-ms2-spec2.png}}
+\caption[A zoomed-in region of \cref{fig:intro:unox-vs-oxid-VEADIAGHGQEVLIR}.]{
+         A zoomed-in region of \cref{fig:intro:unox-vs-oxid-VEADIAGHGQEVLIR}.
+\label{fig:intro:zoomed-in-unox-vs-oxid-VEADIAGHGQEVLIR}}
+\end{figure}
+\end{figure}
+
+However, \(\phi_i\) and \(\phi_j\) are subject to random errors due to the stochastic nature of a run of \gls{MS}.
+\Cref{chap:error} of this thesis presents a novel empirical formula for characterizing such random errors with fewer-than-expected amount of experimental data.
+
+The throughput of \gls{MSE} is higher than the throughput of \gls{MS/MS} by orders of magnitude. 
+Unfortunately, \cref{chap:MSE} of this thesis shows that currently \gls{MSE} almost certainly cannot probe \gls{SASA} at subpeptide level.

@@ -1,0 +1,872 @@
+%--------1---------2---------3---------4---------5---------6---------7---------8---------9---------1---------2---------3---------4---------5---------6
+%23456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+
+\glsunsetall
+\chapter{Fundamentals of \texorpdfstring{\glsfirst{MS}}{mass spectrometry}}
+\label{chap:fund2}
+\glsresetall
+
+This chapter presents the fundamentals of \gls{MS} and focuses on \gls{MS}-related concepts.
+The order in which we present the sections in this chapter is approximately the order in which a typical \gls{RP-MS} experiment is performed.
+
+\Cref{sec:MS:FPOP} presents \gls{FPOP}, an analytical-chemistry technique for oxidizing an investigated protein.
+\Cref{sec:MS:proteolysis} presents proteolysis, a molecular-biology method often applied before performing \gls{HPLC}.
+\Cref{sec:MS:proteolysis} presents \gls{HPLC}, an analytical-chemistry technique for separating analytes based on some of their chemical properties.
+\Cref{sec:MS:MS} presents \gls{MS}, an analytical-chemistry technique for measuring the \gls{m/z} of analytes.
+\Cref{sec:MS:MSMS} presents \gls{MS/MS}, a subclass of \gls{MS}.
+In essence, \gls{MS/MS} fragments analytes and then measures the \gls{m/z} of each of these fragments.
+\Cref{sec:MS:prep} presents the preprocessing of raw mass spectra.
+Examples of such preprocessing are centroiding, deconvolution, and deisotoping.
+Such processing facilitates the subsequent interpretation of these preprocessed mass spectra.
+\Cref{sec:MS:PSM} presents \gls{PSM}, a key concept in the interpretation of the \gls{MS2} spectra that are produced by protein \gls{MS}.
+\Cref{sec:fund2:MS-protocols} presents common protocols of protein \gls{MS} and focuses on \gls{RP-MS}.
+
+\section{\texorpdfstring{\Glsfirst{FPOP}}{FPOP}} 
+\label{sec:MS:FPOP}
+
+\Gls{FPOP} is an analytical-chemistry technique for covalently labeling a protein.
+		%\Gls{OH-rad} is the electrically neutral form of hydroxide ion. 
+\Gls{FPOP} uses ultraviolet light to cause the dissociation of hydrogen peroxide (\HydrogenPeroxide{}) and then the formation of \gls{OH-rad}, 
+%or by the photolysis of 1-Hydroxy-2(1H)-pyridinethione. 
+The action of such ultraviolet light is shown in the following chemical equation. % shows the dissociation of \HydrogenPeroxide{} under ultraviolet light.
+\begin{align*}
+\HydrogenPeroxide{} + {\lightning} ~ \to ~ \text{HO} {\lightning} \text{OH} ~ \to ~  2 ~ \gls{OH-rad}
+& & ({\lightning}\text{ denotes 248 nm ultraviolet light})
+\end{align*} % 254 nm ?
+The \textit{in vivo} half-life of \gls{OH-rad} is approximately \(10^{-9}\si{\second}\), and \gls{OH-rad} is highly reactive. % wikipedia [4]
+Thus, \gls{OH-rad} virtually damages all types of macromolecules such as carbohydrates, nucleic acids, lipids, and amino acids \cite{JPI:JPI1}. 
+
+\begin{figure}
+\center
+\myframe{\includegraphics[width=\textwidth, page=1,   clip=true, bb=37 109 551 240]{img/gruebele2010analytical.pdf}}
+\caption[
+	An overview of \gls{FPOP} \cite{gruebele2010analytical}.]{
+	An overview of \gls{FPOP} \cite{gruebele2010analytical}.
+	A protein experiences four stages while passing through a tube. 
+	(a) A denatured protein and hydrogen peroxides (\HydrogenPeroxide{}) flow through a capillary tube. 
+	(b) An infrared laser having a wavelength of 1900 nanometers initiates the folding of the denatured protein.
+	(c) After a brief delay, an ultraviolet laser having a wavelength of 248 nanometers 
+	    		splits \HydrogenPeroxide{} into \gls{OH-rad}.
+	    	Some of these \gls{OH-rad} almost instantaneously oxidize some residues of the partially folded protein.
+	    	Longer delay causes the protein to be less denatured before \gls{OH-rad} is generated, 
+	    		then this less denatured protein is subject to less modification by \gls{OH-rad}.
+	    	If a residue of the protein is closer to the solvent that dissolved the protein,
+	    		then this residue is more heavily modified by \gls{OH-rad}.
+	    	The addition of red dots to the protein 
+	    		represents the addition of oxygen atoms to the protein.
+	(d) The modified protein exits the capillary, 
+	    	a radical scavenger removes the remaining \HydrogenPeroxide{},
+	    	and \gls{MS} quantitates the \gls{OH-rad}-mediated modification which is positively correlated with \gls{SASA}.
+	    	Before \gls{MS}, 
+	     	proteolysis and then \gls{LC} are often performed on the modified protein.      	
+	\label{fig:fund2:schematics-FPOP}}
+\end{figure}
+
+\Gls{OH-rad} can covalently modify a residue through different mechanisms.
+Thus, different mass shifts of the modified residue can be observed.
+The time scale of these covalent modifications is usually less than one millisecond.
+Thus, there is only a sub-millisecond interval between the time that \gls{OH-rad} enters in contact with a residue 
+		and the time that \gls{OH-rad} finishes covalently modifying this residue. 
+While \gls{OH-rad} is covalently modifying a protein, \gls{OH-rad} may also affect the folding process of this protein.
+However, virtually all protein folding processes take more than one millisecond to initiate.
+Thus, the time scale of covalent modification mediated by \gls{OH-rad} is short compared with the time scale of protein folding.
+Thus, before that \gls{OH-rad} finishes covalently modifying a protein, the overall folding process of this protein is unlikely to be affected.
+In fact, \gls{OH-rad} indeed does not substantially affect the folding process of a protein before it finishes modifying this protein \cite{gau2011advancement}.
+
+Intuitively, if the solvent accessibility of a residue is high, then this residue is more likely to be covalently modified by \gls{OH-rad}.
+%Thus, if solvent accessibility is the only explanatory variable which is different in more than one runs of \gls{FPOP}, 
+%		then the more heavily a residue is covalently modified by \gls{OH-rad}, the more likely that this residue is more accessible by solvent.{}
+Thus, the \gls{SASA} %, or equivalently the accessible surface area (ASA), 
+	of a residue of a protein is positively correlated with the extent of \gls{OH-rad}-mediated covalent modification on this residue.
+Moreover, the duration of \gls{OH-rad}-mediated covalent modification is short compared with the duration of protein folding. 
+Thus, the \gls{OH-rad}-mediated modification to any protein only depends on the structure of this protein at the precise time of this modification,
+Thus, after a protein refolds for a given amount of time,
+		the extent of the \gls{OH-rad}-mediated modification to each residue of this protein reveals the \gls{SASA} of this protein after this amount of time.
+Thus, if the time taken for a protein to refold varies,
+	%where this refolding event happens after this protein starts to refold and before that this protein interacts with \gls{OH-rad},
+	then the extent of the \gls{OH-rad}-mediated modification to any residue of this protein as a function of this time 
+	is positively correlated with the solvent-accessibility of this residue as a function of this time.{}
+Thus, we can characterize the change in the \gls{SASA} of a protein as a function of time and thus study protein-folding dynamics.
+
+\begin{table}
+\centering{
+  \begin{tabular}{ l l l l l l l l }
+  \toprule
+  \multicolumn{2}{l}{\(\begin{subarray}{l}\displaystyle\text{Free}\\\displaystyle\text{amino acid}\end{subarray}\)} 
+  & \(\begin{subarray}{l}\displaystyle\text{k}_{\gls{OH-rad}} \\ (\textsc{M}^{-1}\si{\second}^{-1}) \end{subarray}\) \cite{buxton1988critical}        
+  & \multicolumn{5}{l}{\(\begin{subarray}{l}\displaystyle\text{Common mass shifts}
+  	\\\displaystyle\text{resulting from modification by \gls{OH-rad} (\si{\dalton}) \cite{xu2007hydroxyl}}\end{subarray}\)} \\ \midrule
+  %ref THE ADVANCEMENT OF MASS SPECTROMETRY
+  Cys&(C)    & \(3.5 \times 10^{10}\)        & \(-15,9772\) & \(+31.9898\) & \(+47.9847\) & & \\
+  Trp&(W)    & \(1.3 \times 10^{10}\)        & \(+3.9949 \) & \(+15.9949\) & \(+31.9898\) & \(+47.9847\) & \\ 
+  Tyr&(Y)    & \(1.3 \times 10^{10}\)        & \(+15.9949\) & \(+31.9898\) & \(+47.9847\) & & \\ 
+  Met&(M)    & \(8.5 \times 10^9 \)          & \(-32.0085\) & \(+15.9949\) & \(+31.9898\) & & \\ 
+  Phe&(F)    & \(6.9 \times 10^9 \)          & \(+15.9949\) & \(+31.9898\) & \(+47.9847\) & & \\ 
+  His&(H)    & \(4.8 \times 10^9 \)          & \(-23.0160\) & \(-22.0320\) & \(-10.0320\) & \(+4.9789\) & \(+15.9949\) \\ 
+  Arg&(R)    & \(3.5 \times 10^9 \)          & \(-43.0534\) & \(+13.9793\) & \(+15.9949\) & & \\ 
+  Ile&(I)    & \(1.8 \times 10^9 \)          & \(+13.9793\) & \(+15.9949\) & & & \\ 
+  Leu&(L)    & \(1.7 \times 10^9 \)          & \(+13.9793\) & \(+15.9949\) & & & \\ 
+  Val&(V)    & \(8.5 \times 10^8 \)          & \(+13.9793\) & \(+15.9949\) & & & \\ 
+  Pro&(P)    & \(6.5 \times 10^8 \)          & \(+13.9793\) & \(+15.9949\) & & & \\ 
+  Gln&(Q)    & \(5.4 \times 10^8 \)          & \(+13.9793\) & \(+15.9949\) & & & \\ 
+  Thr&(T)    & \(5.1 \times 10^8 \)          & \( -2.0157\) & \(+15.9949\) & & & \\ 
+  Lys&(K)    & \(3.5 \times 10^8 \)          & \(+13.9793\) & \(+15.9949\) & & & \\ 
+  Ser&(S)    & \(3.2 \times 10^8 \)          & \( -2.0157\) & \(+15.9949\) & & & \\ 
+  Glu&(E)    & \(2.3 \times 10^8 \)          & \(-30.0106\) & \(+13.9793\) & \(+15.9949\) & & \\ 
+  Ala&(A)    & \(7.7 \times 10^7 \)          & \(+15.9949\) & & & & \\ 
+  Asp&(D)    & \(7.5 \times 10^7 \)          & \(-30.0106\) & \(+15.9949\) & & & \\ 
+  Asn&(N)    & \(4.9 \times 10^7 \)          & \(+15.9949\) & & & & \\ 
+  Gly&(G)    & \(1.7 \times 10^7 \)          & n.d. & & & & \\ \bottomrule
+  \end{tabular}}
+\caption[
+	The initial rates of the second-order reaction of free amino acids with \gls{OH-rad} at pH=7 
+			and the common mass shifts produced by such reaction.]{
+	The initial rates of the second-order reaction of free amino acids with \gls{OH-rad} at pH=7 
+			and the common mass shifts produced by such reaction.
+	A free molecule is not covalently bound to any other molecule. 
+	If an amino acid residue is part of a given protein in a given solution, 
+		then the \(\text{k}_{\gls{OH-rad}}\) of this residue depends on 
+			the position of this residue with respect to this given protein and on the properties of this given solution.
+	\label{tab:AA-OH-reaction-rate}}
+
+\begin{figure}[H]
+\center
+\myframe{\includegraphics[width=\textwidth, page=4,   clip=true, bb=143 397 472 441]{img/lee2006perr.pdf}}
+\caption[
+	A mechanism of histidine oxidation \cite{lee2006perr}.]{
+	A mechanism of histidine oxidation \cite{lee2006perr}.
+	\label{OH_Leu_example}}
+\end{figure}
+\end{table}	
+
+Different residues have different mechanisms of reacting with \gls{OH-rad}. 
+Thus, different residues have hugely different reaction rates with \gls{OH-rad}.
+For example,	the second order reaction rate of \gls{OH-rad} with cysteine, the most reactive one, 
+ is approximately 2000 times higher than such rate with glycine, the least reactive one \cite{buxton1988critical}.	
+However, \gls{OH-rad} usually oxidizes a residue, and oxidation of a residue by \gls{OH-rad} often adds one oxygen atom to this residue.
+Thus, \gls{ox1} is the principal \gls{OH-rad}-mediated covalent modification to all residues.
+For example, all residues can have a mass shift of +15.9949 or +31.9898 \ensuremath{\si{\dalton}} after reacting with \gls{OH-rad} except glycine, 
+	which simply does not react with \gls{OH-rad}.
+The mass shifts of +15.9949 and +31.9898 correspond to the addition of one and two oxygen atoms respectively \cite{xu2007hydroxyl}.
+\Cref{tab:AA-OH-reaction-rate} shows that reactions between different residues and \gls{OH-rad} happen at different speeds. 
+However, these reactions result in similar mass shifts to these different residues.
+We use \( +15.9949\), \(+15.99\), and \(+16\) interchangeably to denote the mass shift caused by the addition of one oxygen atom.
+
+\section{Enzymatic proteolysis} 
+\label{sec:MS:proteolysis}
+
+\begin{figure}
+\center
+\begin{tabular}{l l}
+{Before any cleavage:}          & \texttt{K-A-F-A-R-W-A-R-P-K-P-R-E-Y-M-Q-F-P-W-P-Y-P}\\
+{After trypsin cleavage:}       & \texttt{K|A-F-A-R|W-A-R-P-K-P-R|E-Y-M-Q-F-P-W-P-Y-P}\\
+{After} {chymotrypsin cleavage:}& \texttt{K|A-F|A-R|W|A-R-P-K-P-R|E-Y|M-Q-F-P-W-P-Y-P}
+\end{tabular}
+\caption[An example of proteolysis]
+{An example of proteolysis by trypsin and then by high-specificity chymotrypsin.
+Unlike most proteases, chymotrypsin does not cleave any polypeptide until trypsin activates this chymotrypsin.
+Trypsin cleaves after any of \{\texttt{K}, \texttt{R}\} that is not before \texttt{P}.
+High-specificity chymotrypsin cleaves after any of \texttt{\{F, Y, W\}} that is not before \texttt{P}.
+\label{fig:MS:proteolysisExample}}
+\end{figure}
+
+A protease (also called peptidase, proteinase, or proteolytic enzyme) is an enzyme that can perform proteolysis.
+Proteolysis is the cleavage a polypeptide into shorter peptides or amino acids.
+A specific protease only cleaves at specific peptide bonds in the backbone of a polypeptide.
+Thus, cleavage of a given polypeptide by a given specific protease produces a predictable set of peptides. 
+
+If a carbonyl-carbon is part of lysine (\texttt{K}) or arginine (\texttt{R}) and a nitrogen is not part of proline (\texttt{P}),
+	then the protease trypsin cleaves at the peptide bond between this carbonyl-carbon and this nitrogen, and vice versa. 
+Equivalently, the specificity rule of trypsin cleavage is referred to as follows: after \texttt{K} or \texttt{R} and not before \texttt{P}. 
+Trypsin molecules can cleave each other because trypsin is also a type of protein. 
+Thus, trypsin molecules are stored at below \(-20\si{\celsius}\) to prevent them from cleaving each other.
+Trypsin is the most commonly used protease for \gls{MS}.
+
+Different specific proteases are subject to different specificity rules. 
+For example, 
+	LysN cleaves before \texttt{K}, 
+	LysC cleaves after  \texttt{K}, 	
+	GluC cleaves after  \texttt{E}, 
+	AspN cleaves before \texttt{D}, 
+	high-specificity chymotrypsin cleaves after any of \{\texttt{F}, \texttt{Y}, \texttt{W}\} and not before \texttt{P},
+	and low-specificity chymotrypsin cleaves after any of \{\texttt{F}, \texttt{Y}, \texttt{W}, \texttt{M}, \texttt{L}\} and not before \texttt{P}. 
+Different proteases usually cleave the same peptide independently of each other (\cref{fig:MS:proteolysisExample}).
+%if different proteases cleave the same polypeptide, 
+%then the cleavage of this polypeptide by one of these proteases is usually not substantially affected by other proteases. 
+
+\section{\texorpdfstring{\Glsfirst{HPLC}}{HPLC}} 
+\label{subsection_UPLC}
+
+\Glsfirst{LC} is an analytical-chemistry technique.
+\Gls{LC} separates a mixture into the components constituting this mixture based on the chemical properties of these components.
+In analytical chemistry, components, analytes, constituents, and substances are all equivalent in meaning. %?
+To separate a mixture into the components constituting this mixture, \gls{LC} uses a column that elutes different components at respectively different speeds. 
+
+Mobile phase is defined as the solution that is gradually eluted by the column.
+Stationary phase is defined as the sorbent of the column which retains components in the solution. 
+The \gls{RT} of a component is defined as the elapsed time during which this component is retained by the \gls{LC} column,
+	or equivalently the amount of time taken for this component to go through the \gls{LC} column.
+The \gls{RT} of multiple molecules may also refer to the shortest time interval that virtually includes the \gls{RT} of all these molecules. 
+The \gls{RT} of a component depends on the interaction between this component and the stationary phase.
+This interaction depends on the chemistry of the stationary phase, the chemical properties of this component, and on the composition of the mobile phase. 
+Clearly, the more a column retains a component, the higher the \gls{RT} of this component will be in this column, and vice versa. 
+
+
+\Glsfirst{HPLC} is a subclass of \gls{LC}.
+\Gls{HPLC} is characterized by the high pressure applied to the mobile phase. 
+This high pressure, which is usually between 50 and 350 bars, reduces the \gls{RT} of all components. 
+Thus, compared with traditional \gls{LC}, \gls{HPLC} is characterized by higher resolving power and requires less time per run.
+\gls{LC} resolving-power is defined as the ability to distinguish two components with slightly different \glspl{RT}.
+Thus, \gls{HPLC} has gradually replaced traditional \gls{LC}. 
+%In \gls{HPLC}, the stationary phase is made of granular solid particles of 2 to 50 micrometers in size. 
+\Cref{LC_overview} shows some key characteristics of \gls{RPHPLC}, a subclass of \gls{HPLC}.
+\begin{figure}
+\includegraphics[width=\textwidth]{imgbin/RPLC.pdf}
+\caption[
+	A schematic of \acrshort{RPHPLC}]{
+	A schematic of \acrshort{RPHPLC} featuring a hypothetical \acrshort{RPHPLC} experiment.
+	In this experiment, the \acrshort{RT} of hydrophobic molecules and the \acrshort{RT} of very hydrophobic molecules overlap.
+	Thus, this experiment cannot separate these two types of molecules.
+	\label{LC_overview}	
+}
+\end{figure}
+%Different types of \gls{LC} columns result in different types of \gls{LC} or of \gls{HPLC}. 
+%In size-exclusion chromatography, the column preferentially retains small components that have low molecular weight.
+%In cation-exchange chromatography, the column preferentially retains positively charged ions.{}
+%In  anion-exchange chromatography, the column preferentially retains negatively charged ions.
+%In bioaffinity chromatography, the column is made of biologically active substances that have a tendency to attract one or more specific components.
+%Thus, the column preferentially retains components that have high affinity with it. 
+%In partition chromatography, the column preferentially retains polar components.
+%In normal-phase chromatography, the column also preferentially retains polar components,
+%	and the elution of a component depends on the steric hindrance of this component in the column. 
+In \gls{RPHPLC}, the column preferentially retains hydrophobic components.
+Thus, in \gls{RPHPLC}, the \gls{RT} of a hydrophobic component should be higher than the \gls{RT} of a hydrophilic component.
+Moreover, exposure of the hydrophobic regions of a component depends on the size and shape of this component.
+Thus, in \gls{RPHPLC}, the size and shape of a component affect the \gls{RT} of this component.
+Frequently, \gls{RPHPLC} and \gls{MS} are used together.
+%\Cref{7_hplc} summarizes different types of \gls{LC} or \gls{HPLC}.
+%\glsreset{UPLC}
+%\Gls{UPLC} is a subtype of \gls{RPHPLC}, 
+%		where \gls{UPLC} is characterized by extremely high pressure applied to the \gls{RPHPLC} column;
+%	\gls{UPLC} is also a trademark of Waters Corporation.
+
+The following two types of elution exist in \gls{LC}: isocratic elution and gradient elution. %GRAMMAR: (A) elution or (B) elutions
+The composition of the mobile phase is relatively constant during isocratic elution and changing during gradient elution.	
+Usually, the variation in the \gls{RT} of a component in isocratic elution is lower than the variation in \gls{RT} of this component in gradient elution. 
+Thus, the quantity of an eluted component as a function of \gls{RT} forms a sharper peak in gradient elution compared with isocratic elution.
+%Thus, gradient elution is more frequently used than isocratic elution for \gls{RPHPLC}.
+In gradient elution, the mobile phase consists of mostly water at the beginning.
+As elution progresses, an organic solvent miscible with water is gradually added to the mobile phase. 
+In the end, the mobile phase consists of mostly this organic solvent. 
+Some commonly used organic solvents for gradient elution are acetonitrile, methanol, and tetrahydrofuran.
+
+%Theoretical physical models can predict the \gls{RT} of a component given the \gls{HPLC} experimental parameters
+%		\cite{tarasova2006biolccc};
+%	however, the \gls{RT} of a component in a mixture heavily depends on the \gls{HPLC} instrument and on the experimental condition.
+%	thus, most \gls{RT} predictors predict the \gls{RT} of a component by using the \gls{RT} of at least one other component,
+%		where the same \gls{HPLC} instrument elutes all components under the same experimental condition.
+%Due to variation in the composition of the mobile phase, 
+%		\gls{RT} in gradient elution is harder to predict than \gls{RT} in isocratic elution; 
+%	still, back-calculation, which is currently the state-of-the-arts \gls{RT} predictor, 
+%		achieves a \(R^2\) of 0.99996 for predicted \gls{RT} as a function of measured \gls{RT}
+%		and a root mean square error of \(\pm1\) second out of \(20\) minutes of total elution time \cite{boswell2011easy}.
+  
+\section{\texorpdfstring{\Glsfirst{MS}}{MS}}
+\label{sec:MS:MS}
+
+\Gls{MS} is an analytical-chemistry technique based on the use of a mass spectrometer.
+A mass spectrometer takes as input some analytes and outputs the mass spectra of these analytes.
+%An analyte, or equivalently a component, is defined as a substance or chemical constituent that is investigated in an analytical procedure.
+A mass spectrum is a continuum of signal intensity as a function of \gls{m/z}, where \gls{m/z} denotes mass-to-charge ratio. 
+
+Mass spectra of analytes can reveal some properties of these analytes. 
+Examples of these properties are chemical formula and structural formula. %GRAMMAR: chemical and structural formulas?
+Moreover, mass spectra can distinguish between isotopes of a chemical element because isotopes have different masses. 
+
+The history of \Gls{MS} is relatively long. 
+At the beginning of the 20\textsuperscript{th} century, \gls{MS} has already been used for separating isotopes.
+However, the development of protein \gls{MS}, which is the \gls{MS} for studying proteins, only started at the end of the 20\textsuperscript{th} century. 
+Large biomolecules such as proteins tend to fragment into small molecules after being ionized.
+Thus, ionization tends to destroy the structural formula of a protein.
+Thus, protein \gls{MS} has been a major challenge.
+In \citeyear{yamashita1984electrospray}, \citet{yamashita1984electrospray} developed the \gls{ESI} method.
+		%the soft desorption ionization methods,
+\Gls{ESI} can ionize large biomolecules such as proteins without breaking these biomolecules. 
+In \citeyear{tanaka1988protein}, \citet{tanaka1988protein} developed the soft-laser-desorption method.
+Soft laser desorption can also ionize large biomolecules without breaking these biomolecules.
+%In 2002, the Nobel Prize in Chemistry were awarded to John Bennett Fenn
+%	for his work on the ionization of protein \cite{fenn2003electrospray}. 
+
+\begin{figure}
+\myframe{\includegraphics[height=\textwidth, page=76, clip=true, bb=143 129 280 562, angle=-90]
+	{img/eidhammer2008computational.pdf}}
+\caption[
+	A schematic of a typical mass spectrometer \cite{eidhammer2008computational}.]{
+	A schematic of a typical mass spectrometer \cite{eidhammer2008computational}.
+	\label{fig:fund2:ms1-schematics}}
+\end{figure} 
+A mass spectrometer mainly consists of the following three components: an ion source, a mass analyzer, and a mass detector. 
+A typical run of \gls{MS} consists of a sequence of scans.
+Each of these scans proceeds as follows.
+First, the ion source ionizes a set of analytes coming from the inlet of the mass spectrometer so that these analytes form ions.{}
+Next, an extraction system brings these ions from the ion source to the mass analyzer.{} 
+Then, the mass analyzer separates these ions according to the \gls{m/z} of these ions.
+Afterwards, the mass analyzer sends these separated ions to the mass detector.
+Finally, the mass detector measures the quantity of ions at each specific \gls{m/z} to produce a mass spectrum.
+%Ions only exist in vacuum because ions are highly reactive.
+\Cref{fig:fund2:ms1-schematics} shows a schematic of a typical mass spectrometer.
+ 
+\Cref{subsec:fund2:MS:ionsrc} presents some types of ion sources.
+\Cref{subsec:MS:MS:analyzer} presents some types of mass analyzers. 
+\Cref{subsec:fund2:MS:detector} presents some types of mass detectors.
+
+\subsection{Ion source}
+\label{subsec:fund2:MS:ionsrc}
+
+Ionization can be either hard or soft.
+Hard ionization usually fragments analytes, and soft ionization usually does not fragment analytes. 
+For example, electron-impact ionization (EI), also known as electron ionization, is a hard ionization technique. 
+Some popular soft ionization techniques are 
+		fast atom bombardment (FAB), 
+		chemical ionization (CI),
+		matrix-assisted laser desorption/ionization (\rlink{MALDI}),
+		and electrospray ionization (\gls{ESI}).
+Among these techniques, only \rlink{MALDI} and \gls{ESI} can ionize large biomolecules without fragmenting most of these biomolecules. 
+\Gls{ESI} is currently the most popular ionization technique. 
+
+%The working mechanism of \rlink{MALDI} is the following.
+%\begin{enumerate}[nolistsep]
+%\item Sample molecules are introduced into a solid crystallized matrix.
+%\item This matrix absorbs an ultraviolet laser fired to this matrix. 
+%\item This ultraviolet laser ablates the upper layer of this matrix.
+%	This ablated layer generates an ionizing plume. % that consists of a mixture of both this upper layer and the sample molecules. 
+%\item In this ionizing plume, the sample molecules are ionized. 
+%	Most of the sample molecules become singly charged cations.{} 
+%	Some of the sample molecules can become singly charged anions.{}
+%	Some of the sample molecules can become multiply charged cations.
+%\end{enumerate}
+
+\def \M {\textnormal{M}}
+\def \H {\textnormal{H}}
+
+The working mechanism of \gls{ESI} is the following.
+\begin{enumerate}[nolistsep]
+\item By mixing water and volatile compounds, a solvent is prepared. 
+	By mixing this solvent with sample molecules, a solution is prepared.
+%	A solution is prepared by mixing sample molecules with a solvent. 
+%	This solvent consists of water and volatile compounds. %such as methanol and acetonitrile. 
+\item This solution is dispersed by an electrospray into aerosol.
+\item This aerosol is subject to a strong electric field to produce charged droplets.
+\item The solvent in these charged droplets evaporates. 
+	During this evaporation, each of these droplets can undergo the subsequent Coulomb-fission cycle.
+	\begin{enumerate}[nolistsep,label={\arabic*.}]
+	\item Due to this evaporation, one such droplet continuously decreases in size. 
+		However, the charge on this droplet remains constant.
+	\item The electrostatic repulsion of the same charge on this droplet becomes too high compared with the surface tension that holds this droplet together. 
+	\item This droplet explodes and then becomes multiple smaller droplets. 
+	%Such an explosion is referred to as Coulomb fission.
+	\item Each of these smaller droplets can recursively undergo another such Coulomb-fission cycle.
+	\end{enumerate}
+\item 
+	The solvent is almost completely evaporated.
+	Each of the sample molecules might have one or more charges. % that can be either positive or negative.
+	%one positive charge, multiple positive charges, one negative charge, multiple negative charges.
+\end{enumerate}
+\Gls{ESI} has several advantages. 
+For example, \gls{ESI} can ionize a protein without denaturing this protein, can analyze a dilute solution, and can ionize analytes in any polar solvent. 
+Most importantly, \gls{ESI} can generate multiply charged ions. 
+Thus, the \gls{m/z} of a molecule with high molecular weight can still be within the \gls{m/z} detection range of a typical mass spectrometer.
+Thus, \gls{ESI} is currently the most commonly used ionization technique. 
+
+\subsection{Mass analyzer} 
+\label{subsec:MS:MS:analyzer}
+
+Every mass analyzer separates ions according to the \glsfirst{m/z} of each of these ions. 
+\Gls{m/z} \glsdesc{m/z} %GRAMMAR: spacing looks off
+Every mass analyzer is characterized by \gls{m/z} range, peak shape, mass resolution (resolution), and mass accuracy (accuracy).
+
+If the \gls{m/z} of an ion is within the \gls{m/z} range of a mass analyzer, 
+	then the mass spectrometer that uses this mass analyzer can detect this ion.
+Otherwise, this mass spectrometer cannot detect this ion.
+
+A peak is an elevation of intensities within a small interval of \gls{m/z} in a mass spectrum.
+Peak shape is such intensity as a function of the \gls{m/z} in this peak. 
+A peak is usually bell-shaped (\(\bell\)-shaped).
+
+Resolution is the ability to distinguish between two peaks respectively having two slightly different values of \gls{m/z}.
+The IUPAC definition of resolution and the resolving-power definition of resolution coexist.
+Similarly, the IUPAC definition of resolving power the and resolving-power definition of resolving power coexist.
+Let \(M\) be the \gls{m/z} range of a mass analyzer. 
+let \(\Delta{}M\) be the slight difference between the \gls{m/z} of a peak and the \gls{m/z} of another peak.
+Let us suppose that these peaks are both produced by a mass spectrometer that uses this mass analyzer. 
+According to the IUPAC definition, resolution is defined as \(\frac{M}{\Delta{}M}\), and resolving power is defined as \(\Delta{}M\) \cite{mcnaught1997compendium}.
+According to the resolving-power definition, resolution is defined as \(\Delta{}M\), and resolving power is defined as \(\frac{M}{\Delta{}M}\).
+The unit of \(\frac{M}{\Delta{}M}\) is none, and the unit of \(\Delta{}M\) is the unit of \gls{m/z}.
+Thus, the unit of resolution or of resolving power can indicate which of these two definitions is used. 
+Similarly, the peak-width definition of \(\Delta{}m\) and the valley definition of \(\Delta{}m\) coexist. 
+According to the peak-width definition, an \(x\%\)-peak-width \(\Delta{}m\) is defined as the width of a peak measured at \(x\%\) of the height of this peak.
+The overlap between two \(\bell\)-shaped peaks having the same shape but slightly different \gls{m/z} values produces a \({\bell}{\bell}\)-shaped envelope.
+Let us suppose that the minimum height of the valley at the middle of this \({\bell}{\bell}\)-shaped envelope is \(x\%\) of the height of these two \(\bell\)-shaped hills.
+According to the valley definition, an \(x\%\)-valley \(\Delta{}m\) is the difference between the \gls{m/z} values of these two \(\bell\)-shaped peaks.
+
+Accuracy is the ability to produce a peak that is overall near the theoretical \gls{m/z} of this peak. 
+Let \({p_O}\) be the average \gls{m/z} of the observed peak.
+Let \({p_E}\) be the theoretical \gls{m/z} of the expected peak.
+Accuracy is defined as either \(\frac{\lvert{p_O} - {p_E}\rvert}{p_E}\) or \(\lvert{p_O} - {p_E}\rvert\). 
+Thus, the unit of accuracy can indicate which of these two definitions of accuracy is used.
+
+% very good reference
+% https://www.princeton.edu/chemistry/macmillan/group-meetings/SL-mass%20spect.pdf
+
+\subsection{Mass detector} 
+\label{subsec:fund2:MS:detector}
+
+Every mass detector records the current-or-charge produced by an ion when this ion hits or passes by a surface.
+The working mechanism of an electron-multiplier detector is as follows.
+First, an incident ion can cause the ejection of some electrons.
+Then, each of these ejected electrons can cause a new ejection of multiple more electrons.
+Afterwards, this electron-ejection amplification continues until a huge quantity of electrons produce a detectable signal.
+The working mechanism of a Scintillator detector is as follows.
+First, an incident ion can cause the emission of some electrons.
+Then, this emission of electrons can cause the emission of light, 
+Afterwards, this emission of light is detected.
+The working mechanism of a Faraday-Cup detector is as follows.          
+First, an incident ion collides with a metal, and this collision can cause the ejection of secondary electrons.
+Then, this ejection can generate a flow of electric current. %until being recaptured, 
+Afterwards, this flow of electric current is detected.
+Almost every mass detector amplifies the signal generated by an incident ion.
+
+\section{\texorpdfstring{\Glsfirst{MS/MS}}{MS/MS}} % http://en.wikipedia.org/wiki/Tandem_mass_spectrometry
+\label{sec:MS:MSMS}
+ 
+\Glsfirst{MS/MS} is an analytical-chemistry technique that can fragment a biomolecule.
+This fragmentation can partially or fully reveal the chemical structure of this fragmented biomolecule.
+\Gls{MS/MS} has two stages.
+\Gls{MS1} is the first  stage of \gls{MS/MS}.
+\Gls{MS2} is the second stage of \gls{MS/MS}.
+\Gls{MS2} is immediately after \gls{MS1}.
+\Gls{MS1} proceeds as follows.
+First, an ionization source ionizes some sample molecules, and these ionized sample molecules are referred to as precursor ions.
+Then, a mass analyzer separates these precursor ions based on the \gls{m/z} of these precursor ions. 
+Finally, a mass detector detects the \gls{m/z} of some of these separated precursor ions.
+\Gls{MS2} proceeds as follows. 
+First, an ion filter selects some \gls{MS1}-generated precursor ions that are within a chosen \gls{m/z} range. %GRAMMAR: the precursor ions
+Next, some of these selected precursor ions are fragmented. 
+Then, some of these fragments become product ions. %GRAMMAR: and become
+Afterwards, a mass analyzer separates these product ions based on the \gls{m/z} of these product ions.
+Finally, a mass detector detects the \gls{m/z} of some of these separated product ions.
+An \gls{MS1} spectrum is defined as the mass spectrum produced in \gls{MS1}.
+An \gls{MS2} spectrum is defined as the mass spectrum produced in \gls{MS2}.
+\Gls{MS1} spectrum, precursor spectrum, survey spectrum, \gls{MS1} scan, precursor scan, and survey scan are all equivalent in meaning.
+\gls{MS2} spectrum, \gls{MS/MS} spectrum, product spectrum, \gls{MS2} scan, \gls{MS/MS} scan, and product scan are all equivalent in meaning.
+\begin{figure}
+\myframe{\includegraphics[width=\textwidth, page=126, clip=true, bb=59  485 417 630]{img/eidhammer2008computational.pdf}}
+\caption[
+	A schematic of \gls{MS/MS} \cite{eidhammer2008computational}.]{
+	A schematic of \gls{MS/MS} \cite{eidhammer2008computational}.
+	\Cref{MS2_pept_id} is an example that shows peaks produced by protein \gls{MS}.
+}
+\label{schematics_MSMS_instrument}
+\end{figure}
+
+
+{
+\def \AB{\textnormal{AB}}
+\def \A{\textnormal{A}}
+\def \B{\textnormal{B}}
+\def \M{\textnormal{M}}
+\def \H{\textnormal{H}}
+The distribution of the product ions generated by \gls{MS/MS} depends on the fragmentation method used for this \gls{MS/MS}.
+\Gls{CID}, also known as collision activated dissociation (CAD), is the most popular fragmentation method.
+The mechanism of \gls{CID} is as follows. 
+First, an electromagnetic field accelerates a precursor-ion \AB{}.
+Next, this precursor ion can collide with at least one neutral gaseous molecule \M{}. 
+Then, this collision can cause this precursor ion to fragment.
+Afterwards, this precursor ion can fragment into one product ion \A{} and one uncharged molecule \B{}. 
+Finally, \A{} can be detected. 
+%Usually, \M{} is a noble gas. 
+\begin{figure}
+\begin{tabular}{|c|c|}
+\hline & \\
+\begin{subfigure}{0.51\textwidth}
+\myframe{\includegraphics[height=.72\textheight, page=20,  clip=true, bb=200 142 400 472]{img/banerjee2012electrospray.pdf}}
+\caption[]{
+	The notation for the major product ions. %: \{\texttt{a}, \texttt{b}, \texttt{c}, \texttt{x}, \texttt{y}, \texttt{z}\}.
+}
+\label{fig:fund2:listof-product-ions}
+\end{subfigure}&
+\begin{subfigure}{0.45\textwidth}
+\myframe{\includegraphics[height=.72\textheight, page=22,  clip=true, bb=200 341 400 717]{img/banerjee2012electrospray.pdf}}
+\caption[]{
+	How b-ions and y-ions are formed.
+}
+\label{fig:fund2:yb-ions-generation-mechanism}
+\end{subfigure}
+\\\hline
+\end{tabular}
+\caption[
+	Peptide fragmentation in \gls{MS2} \cite{banerjee2012electrospray}.]{
+	Peptide fragmentation in \gls{MS2} \cite{banerjee2012electrospray}.
+	%By breaking one of three types of bonds in a peptide backbone, 
+	%The following six types of product ions can form: \{\texttt{a}, \texttt{b}, \texttt{c}, \texttt{x}, \texttt{y}, \texttt{z}\}.
+}
+\end{figure}
+The following chemical equation describes the mechanism of \gls{CID}.
+%The mechanism of \gls{CID} is summarized in the following chemical equation.
+\[\AB^+ + \M \to \A^+ + \B + \M\]	
+%In electron capture dissociation (ECD), the precursor cation captures a free electron and then fragments. 
+%The following chemical equation describes the mechanism of ECD \cite{cooper2005role}.
+%\[ [\M + n\H]^{n+} + e^{-} \to \big[ [\M + n\H]^{(n-1)+} \big]^{*} \to \text{fragments} \] 
+%Electron transfer dissociation (ETD) is similar to ECD, except that the precursor cation captures the electron of another anion instead of capturing a free electron, 
+%In electron transfer dissociation (ETD), the precursor cation captures the electron of an anion and then fragments.
+%The following chemical equation describes the mechanism of ETD \cite{syka2004peptide}.
+%\[ [\M + n\H]^{n+} + \A^{-} \to \big[ [\M + n\H]^{(n-1)+} \big]^{*} + \A \to \text{fragments} \] 
+%Negative electron transfer dissociation (NETD) is similar to ETD, except that the precursor is an anion instead of a cation.
+%In negative electron transfer dissociation (NETD), the precursor anion loses one electron to a cation and then fragments.
+%the precursor anion dissociates after giving one of its electrons to a cation, 
+%		as shown in the chemical equation below \cite{Coon2005880}.
+%The following chemical equation describes the mechanism of NETD \cite{Coon2005880}.
+%\[ [\M + n\H]^{n-} + \A^{+} \to \big[ [\M + n\H]^{(n-1)-} \big]^{*} + \A \to \text{fragments} \] 
+Even if no fragmentation method is used, precursors can still fragment if the energy in these precursors is sufficiently high. 
+%Nowadays, \gls{CID} is the most commonly used fragmentation method for \gls{MS/MS}.
+}
+
+\Gls{MS2} can break the backbone of a peptide to produce peptide fragments. % α-C, carbonyl C, N
+%More specifically, 
+%	the bond between alpha-carbon and carbonyl-carbon, 
+%	the bond between carbonyl-carbon and nitrogen, and 
+%	the bond between nitrogen and alpha-carbon can be broken. 
+Breakage of the bond between alpha-carbon    and carbonyl-carbon can generate either an a-ion or an x-ion (\cref{fig:fund2:listof-product-ions}).
+Breakage of the bond between carbonyl-carbon and nitrogen        can generate either a b-ion or a y-ion (\cref{fig:fund2:listof-product-ions}).
+Breakage of the bond between nitrogen        and alpha-carbon    can generate either a c-ion or a z-ion (\cref{fig:fund2:listof-product-ions}).
+Only a positively charged fragment containing the N-terminus of a precursor peptide can become an a-ion, a b-ion, or a c-ion.
+Only a positively charged fragment containing the C-terminus of a precursor peptide can become an x-ion, a y-ion, or a z-ion. 
+Sufficiently high collision energy in \gls{CID} can even fragment the side chain of a residue. 
+Then, this fragmentation can generate some product ions that are not even shown in \cref{fig:fund2:listof-product-ions}.
+However, \gls{CID} generates mostly b-ions and y-ions. 
+    
+%--------------------------------------------------------------------- more stuff on spectrum
+
+\section{Preprocessing of mass spectra} 
+\label{sec:MS:prep}
+
+In a mass spectra, the ion intensity at a precise \gls{m/z} is the strength of the signal that is generated by some ions having this \gls{m/z}.
+This strength is often the number of such ions that are detected.
+A peak is defined as the ion intensities within a small interval of \gls{m/z} in a mass spectrum.
+Presumably, some physically and chemically identical ions generate most of the ion intensities in this peak.
+
+A peak is not always be bell-shaped.
+The intensity of a peak is the sum of all intensities in this peak. 
+The centroid of a peak is characterized by a combination of the representative \gls{m/z} of this peak and the intensity of this peak.
+A centroid \(C\) of a peak is mathematically defined as follows \cite{urban2014fundamental}.
+\[C \isdefinedas %(\bar{m}, \Sigma{y}) = 
+\left(\frac{\displaystyle\sum_{a<m<b} y(m){\cdot}m}{\displaystyle\sum_{a<m<b} y(m)}, \sum_{a<m<b} y(m) \right)\]
+	where \(m\) is \gls{m/z}, 
+	\(y(m)\) is the ion intensity at \(m\), 
+	\(\sum_{a<m<b} y(m)\) is the intensity of this peak, 
+	\(a\) is the lower \gls{m/z} border of this peak, 
+	and where \(b\) is the upper \gls{m/z} border of this peak.
+\cite{urban2014fundamental} presents several procedures for determining both \(a\) and \(b\). 
+Centroiding is defined as the process of replacing a peak by the centroid of this peak.
+Centroiding transforms a peak into one ion intensity at one \gls{m/z}.
+Thus, centroiding reduces, in a mass spectrum, the number of pairs of \gls{m/z} and ion intensity.
+Thus, centroiding compresses a mass spectrum although this compression is lossy.
+Moreover, centroiding partially removes the noise in a mass spectrum.
+Thus, centroiding facilitates the analysis of a mass spectrum.
+
+Isotopes are defined as atoms having the same number of protons but pairwise different number of neutrons.
+Thus, isotopes have the same chemical properties but pairwise different masses.
+Each of these pairwise differences is a multiple of the mass of a neutron, and the mass of a neutron is approximately \(1.009\si{\dalton}\).
+Almost every atom has multiple isotopes.
+Isotopic molecules have the same structural formula but pairwise different masses.
+This mass difference exists because at least one atom in this structural formula has isotopes.
+Isotopes can also refer to isotopic molecules. 
+Thus, all isotopes of every molecule pairwise differ in molecular weight.
+Each of these pairwise differences is approximately a multiple of \(1.009\si{\dalton}\).
+%the molecular weight of every isotope differs from the molecule weight of every other isotope by a multiple of approximately \(1.009\si{\dalton}\).
+
+The mass of a molecule is the sum of the respective masses of the individually distinguishable atoms that collectively constitute this molecule.
+The monoisotopic mass of an atom is defined as the mass of the most abundant isotope of this atom.
+Nominal mass                     is defined as the monoisotopic mass rounded to the nearest integer. 
+The average      mass of an atom is defined as the average of the respective masses of all isotopes of this atom 
+		such that this average is weighted by the natural abundance of each of these isotopes.
+\Cref{tab:fund2:listof-residues-emph-mass} 
+		shows the respective monoisotopic masses of the commonly observed amino-acid residues and the respective average masses of these residues.
+\begin{table}
+\centering{
+	\includegraphics[trim=0cm 6cm 0cm 0cm, width=\textwidth]{img/AATable.pdf}
+%\includegraphics[page=2,bb = 20 165 410 580,clip=true,width=\textwidth]{images/2013-massref-web.pdf}
+}
+\caption[
+	Some properties of the commonly observed amino acids \cite{mascot2014amino}.]{
+	Some properties of the commonly observed amino acids \cite{mascot2014amino}.
+	\label{tab:fund2:listof-residues-emph-mass}
+}
+\end{table}
+
+In every mass spectrum, the charge state (\(z\)) of a peak is defined as the charge of the ion that generated this peak.
+Let us suppose that two ions have the same \(z\) and differ by a mass difference of \(\Delta{}m\).
+Then, in every mass spectrum, the respective \gls{m/z} of the peaks respectively generated by these two ions differ by \(\frac{\Delta{}m}{z}\).
+Thus, \(n\) isotopes having the same \(z\) and ordered by mass can respectively generate \(n\) isotopic peaks ordered by \gls{m/z}.
+Every two consecutive peaks in these isotopic peaks differ by approximately \(\frac{1.009}{z}\) in \gls{m/z}.
+The charge-state determination of some isotopic peaks is defined as the process of inferring the \(z\) of these peaks. 
+%given that these peaks are presumably generated by multiple corresponding isotopic ions.
+Deisotoping of some isotopic peaks is defined as the process of converting these peaks into one representative peak. 
+	%\gls{m/z}, %of \(\frac{m}{z}\),
+The mass in the \gls{m/z} of this representative peak is usually the monoisotopic mass of the ions that respectively generated these isotopic peaks.
+The \(z\) of this representative peak is the common \(z\) of these isotopic peaks.
+
+Let \(A_1\) and \(A_2\) be two chemically and physically identical molecules.
+The following can happen: \(A_1\) gains one positive charge to become \(A_1^+\), and \(A_2\) gains two positive charges to become \(A_2^{++}\).
+Let \(m_1\) the \gls{m/z} of the peak generated by \(A_1^+\), and let \(m_2\) the \gls{m/z} of the peak generated by \(A_2^{++}\)
+Then, \(m_1 + 1.007 \approx 2\cdot m_2\).
+In general, some chemically and physically identical molecules can respectively form different ions during ionization.
+Then, these different ions respectively generated different peaks having pairwise different \gls{m/z}.
+%During ionization, these identical molecules may gain or lose different number of protons and/or electrons.
+%After ionization, these identical molecules can respectively have different charges. 
+%The generate differently charged precursor ions. 
+%These different precursor ions respectively generate different peaks having different \gls{m/z}.
+Deconvolution is defined as the process of converting these different peaks into one peak by assuming the following.
+%Instead of gaining or losing multiple protons or multiple electrons, each sample molecule gains or loses one single proton or one single electron.
+After ionization, each sample molecule can only gain exactly one proton (electron) instead of being able to gaining multiple protons (electrons).
+%gain one electron, loses one proton, or loses one electron.
+
+During fragmentation in \gls{MS2}, an ion might lose part of this ion such that the \(z\) of this ion remains unchanged.
+This lost part is usually a small molecule, such as \(\text{H}_2\text{O}\) or \(\text{N}\text{H}_3\).
+Such loss is referred to as neutral loss. 
+
+{
+\def \m {c}
+\def \M {C}
+%\def \MW {\ensuremath{\textnormal{mm}^\textnormal{+n}}}
+\def \mMass {m} 
+\def \setofMass {M}
+
+The mass of a proton  is approximately \(1.007\si{\dalton}\).
+The mass of a neutron is approximately \(1.009\si{\dalton}\).
+Let \(\M\) be any collection of chemically identical molecules. 
+Let \(\mMass\) be the monoisotopic mass, in \(\si{\dalton}\), of \(\M\).
+%		%this that a constant number of elementary charge(s) is on any of this given cations.{}
+%Let \(\mMass\) be the monoisotopic mass of \(\M\) in \(\si{\dalton}\).
+%%If each \(\m\in\M{}\) is singly charged, then each \(\m\in\M\) can only generate a peak at one of the following \gls{m/z}.
+Let us suppose that each isotope of \(\M\) gains one proton to become a cation.
+Then, an approximate \gls{m/z} of the peak generated by this cation is in the following set:
+		\begin{tightcenter}
+		\{
+		\(\dots, 1.007+\mMass-2{\times}1.009,1.007+\mMass-1{\times}1.009,\) \\
+		\(1.007+\mMass,\) \\
+		\(1.007+\mMass+1{\times}1.009,1.007+\mMass+2{\times}1.009, \dots\) 
+		\}
+	\end{tightcenter}
+where these different \gls{m/z} correspond to different isotopes.
+%If every \(\m\in\M\) can be multiply charged,
+%		then every \(\m\in\M\) whose mass is the monoisotopic mass of \(\M\) can only generate the peaks at some of the following \gls{m/z}:
+Let us suppose that the most naturally abundant isotope of \(\M\) forms some pairwise different cations.
+%Then, each of these cations can generate a peak only at approximately one of the following \gls{m/z}:
+Then, an approximate \gls{m/z} of the peak generated by any of these cations is in the following set:
+		\begin{tightcenter}
+		\{\(\displaystyle
+		\frac{\mMass+1{\times}1.007}{1},
+		\frac{\mMass+2{\times}1.007}{2},
+		\frac{\mMass+3{\times}1.007}{3},\dots
+		\)\}
+		\end{tightcenter}	
+where these different \gls{m/z} correspond to different charge states (\(z\)).
+%By definition of charge state, \(z\) is equivalent to the charge state of a peak generated by this cation in a mass spectrum; 
+%	then \(\displaystyle\frac{\setofMass+1.007{\times}z}{z}\) is approximately the \gls{m/z} of this peak, 
+Let \(\setofMass\) be the set that contains only the respective masses of all isotopes of \(\M\).
+Then, for each \(m'\in\setofMass\), there exists an integer \(n\) such that \(m'\approx\mMass + n{\times}1.009\).
+Let \(Z\) be the set that contains only the respective \(z\) of all cations formed by \(\M\).
+Then, \(Z\subset\{1,2,3,\dots\}\), and \(Z\) is consecutive because ionization efficiency as a function of \(z\) is bell-shaped.
+Thus, for each isotope of \(\M\) and for each cation formed by this isotope, the \gls{m/z} of the peak formed by this cation is in the following set.
+\[
+%\text{The respective \gls{m/z} of the peaks generated by ionization of \(\M\)} \approx 
+	\bigcup_{\substack{\textstyle m' \in \setofMass}}\big(\bigcup_{\textstyle z' \in Z}^{}(\frac{m'+1.007\cdot z'}{z'})\big)\] 
+%where \(\MW\) is the set that contains only the mass of every isotope of chemically identical cations, 
+%	and 
+%By definition of isotope, \(\setofMass\) is a sequence of numbers characterized by an increment of approximately 1.009,
+%		the approximated mass of a neutron; 
+%		%\footnote{A better approximation for the mass of a neutron is 1.008665};
+%	moreover, ionization efficiency as a function of charge state is bell-shaped,
+%		so \(Z\) is a sequence of natural numbers characterized by an increment of 1.
+%By knowing the \gls{m/z} of peaks that are presumably generated by isotopes of chemically identical cations, 
+%	we can compute \(\setofMass\) and \(Z\) because \(\setofMass\) and \(Z\) have restricted values \cite{glish2003basics}.
+Both \(\setofMass\) and \(Z\) can be observed in a mass spectrum. 
+
+The combination of deconvolution and deisotoping converts all peaks generated by \(\M\) into one single peak.
+This single peak is presumably generated by the addition of one proton to the most naturally abundant isotope of \(\M\).
+%The relative abundance of each \(\m'\) in \(\M\) should be directly proportional to the relative intensity of the peaks generated by \(\m'\).
+%If theoretical peaks match observed peaks in both \gls{m/z} and intensities, 
+%	then the combination of such deconvolution and such deisotoping is valid.
+%Otherwise, this combination is invalid.
+%Then, a match between theoretical peaks and observed peaks in terms of \gls{m/z} and intensities validates such combination of deconvolution and %deisotoping,
+%		and the absence of this match invalidates such combination of deconvolution and deisotoping.
+}
+
+\section{\texorpdfstring{\Glsfirst{PSM}}{PSM}} 
+\label{sec:MS:PSM}
+	
+In an \gls{MS2} spectrum, the respective masses of some product ions formed by a peptide \M{} can be estimated by the following procedure.
+\begin{enumerate}[nolistsep]
+\item 
+	Determine the mass offset \(\Delta m\) that is specific to the product ion formed by \M{}.
+	As shown in \cref{fig:fund2:yb-ions-generation-mechanism}, 
+			Both y-ion and b-ion are mostly composed of residues chained together by peptide bonds,
+			y-ion possesses one extra \WaterHOH{} and one extra hydrogen atom (H), and
+			b-ion possesses one extra H.
+	Thus,
+			\(\Delta m \approx 19.018\) for y-ion and \(\Delta m \approx 1.008\) for b-ion.
+\item 
+	Determine the direction in which the residues of \(\M{}\) are iterated. 	
+	This direction is from N-terminus to C-terminus for a-ion, b-ion, and c-ion. 
+	This direction is from C-terminus to N-terminus for x-ion, y-ion, and z-ion.
+\item 
+	Iterate the residues of \(\M\). 
+	In each iteration, let \(\Sigma m\) be the sum of the respective masses of all residues which are iterated. 
+	Add \(\Delta m + \Sigma m\) to the output list of the respective masses of these product ion formed by \M{}.
+\end{enumerate}
+\Cref{MS2_pept_id} shows example of the application of such procedure.
+\begin{figure}
+\center
+\begin{tabular}{c c}
+\myframe{\includegraphics[bb = 70 50 730 487,clip=true, page=25,width=0.48\textwidth]{img/info_Peptide_Fragmentation_Course.pdf}}&
+\myframe{\includegraphics[bb = 70 50 730 487,clip=true, page=26,width=0.48\textwidth]{img/info_Peptide_Fragmentation_Course.pdf}} \\
+\myframe{\includegraphics[bb = 70 50 730 487,clip=true, page=27,width=0.48\textwidth]{img/info_Peptide_Fragmentation_Course.pdf}}&
+\myframe{\includegraphics[bb = 70 50 730 487,clip=true, page=28,width=0.48\textwidth]{img/info_Peptide_Fragmentation_Course.pdf}} \\
+\end{tabular}
+\caption[An interpretation of an \gls{MS2} spectrum by \gls{PSM}.]
+        {An interpretation of an \gls{MS2} spectrum by \gls{PSM}.
+         The peptide \texttt{SGFLEEDELK} generated this \gls{MS2} spectrum.
+         The peak at the \gls{m/z} of 583.5 is the doubly charged precursor of \texttt{SGFLEEDELK}.
+        (Upper left) The theoretical molecular weight (MW) in \(\si{\dalton}\), the notation, and the sequence, of each b-ion of \texttt{SGFLEEDELK} and of each y-ion of \texttt{SGFLEEDELK}.
+        %Respective molecular weights (MWs), in nominal mass definition and in \(\si{\dalton}\), of the b-ions and y-ions of \texttt{SGFLEEDELK}.
+        (Upper right) An uninterpreted \gls{MS2} spectrum generated by \texttt{SGFLEEDELK}.
+        (Lower left)  For some high-intensity peaks, the \gls{m/z} of this peak matches the theoretical MW of an y-ion of \texttt{SGFLEEDELK}.
+        (Lower right) For some high-intensity peaks, the \gls{m/z} of this peak matches the theoretical MW of a b-ion of \texttt{SGFLEEDELK}.
+}
+\label{MS2_pept_id}
+\end{figure}
+%Peptide identification is the act of identifying the peptides that are in the sample analyzed by a run of \gls{LC-MS/MS}.
+%A peptide-identification algorithm takes as input some mass spectra produced by such run and outputs some peptides.
+%These peptides presumably generated some of these mass spectra.
+%If this algorithm optionally takes as input the protease that cleaved the proteins in the sample analyzed by this run,
+%	then these outputted peptides are constrained to be generated by the proteolysis by this inputted protease.
+Such procedure can be used for calculating a \gls{PSM} score.
+The \gls{PSM} between a peptide and a mass spectrum implies that this peptide is likely to have generated some signals in this mass spectrum.
+%A high \gls{PSM} score between a peptide and a mass spectrum implies that this peptide is likely to generate some signals in this mass spectrum. 
+Thus, \Gls{PSM} can be used for identifying the peptide that generated some signals in a given mass spectrum.
+
+
+\textit{De novo} sequencing derives information about the sequence of a presumably novel peptide. 
+This sequence presumably has never been discovered before this \textit{de novo} sequencing.
+Database search derives information about the sequence of a peptide such that this sequence can be extracted from a database. %TODO: synonym for "extracted" 
+Usually, this peptide can be generated by the proteolysis of at least one protein found in this database.
+This proteolysis is usually catalyzed by a given protease.
+\textit{De novo} sequencing explores more peptide sequences than database search.
+Thus, \textit{de novo} sequencing is more error-prone than database search. 
+Some commonly used database-search software packages are 
+	Mascot \cite{cottrell1999probability}, 
+	PEAKS DB \cite{zhang2012peaks}, 
+	Sequest \cite{eng1994approach}, 
+	MS-GFDB \cite{kim2010generating}, 
+	X!Tandem \cite{craig2004tandem}, 
+	and OMSSA \cite{geer2004open}.
+
+\Gls{PTM} is any \textit{in vivo} covalent modification to a protein after this protein has been synthesized. 
+\Gls{PTM} is presented in more detail in \cite[Chapter~20]{naik2012essentials}. % Essentials of Biochemistry By Naik Chapter 20
+Almost every \gls{PTM} can be detected in a mass spectrum as a mass shift.
+Thus, \gls{MS} can often identify and sometimes quantitate a \gls{PTM}.
+\Gls{FPOP} usually shifts the mass of a biomolecule by \(+15.99\si{\dalton}\) (\cref{tab:AA-OH-reaction-rate}).
+However, \gls{FPOP} is not \textit{in vivo}.
+Thus, \gls{FPOP} does not generate any \gls{PTM}.
+
+\section{\texorpdfstring{\Glsfirst{MS}}{MS} protocols}
+\label{sec:fund2:MS-protocols}
+
+\Cref{fig:fund2:wetlab-workflow} shows some workflows of protein \gls{MS}.
+%Bottom-up proteomics is the most common workflow.
+\Cref	{fig:fund2:RPMS-schematics} is an schematic of a typical \gls{RP-MS} experiment.
+\Gls{RP-MS} is commonly used for studying protein-folding dynamics.
+Unfortunately, the spatial resolution of \gls{RP-MS} is only at peptide level. 
+This peptide level is an intrinsic characteristic of proteolysis.
+Fortunately, by using a variant of the standard \gls{RP-MS}, we can improve the spatial resolution of \gls{RP-MS} to subpeptide level.
+\Cref{chap:oxlvl} presents this improvement.
+
+\begin{figure}
+The following is the workflow of \gls{LC-MS/MS} for an investigated protein.
+\begin{enumerate}[nolistsep,label={\arabic*}]
+\item A protease, such as trypsin, cleaves the investigated protein into peptides.
+\item \Gls{HPLC} elutes these peptides. Each of these peptides exits the \gls{HPLC} column at the \gls{RT} of this peptide in this column.
+\item While \gls{HPLC} is eluting, the mass spectrometer repeats the following procedure.
+\begin{enumerate}[nolistsep,label={\arabic*}]
+	\item The inlet of the mass spectrometer extracts the eluted peptides from the exit of the \gls{HPLC} column.
+	\item The ion source of the mass spectrometer ionizes these extracted peptides by using a soft ionization technique, such as \gls{ESI}.
+	      Ionized peptides can be referred to as precursors.
+	\item The mass analyzer of the mass spectrometer separates these precursors based on the respective \gls{m/z} of these precursors.
+	\item If the conditions for \gls{MS1} are satisfied, 
+		      then the mass detector of the mass spectrometer measures the \gls{m/z}-and-intensity of each of these precursors to produce a raw \gls{MS1} spectrum. 
+	\item Otherwise, if the conditions for \gls{MS2} are satisfied, 
+		      then the mass spectrometer proceeds as follows. 
+	\begin{enumerate}[nolistsep,label={\arabic*}]
+	\item The mass analyzer selects these separated precursors such that the respective \gls{m/z} of these selected precursors are within a given range.	
+	\item The mass analyzer uses a method, such as \gls{CID}, to fragment these selected precursors. 
+	      Some of these fragments respectively become product ions.
+	\item The mass detector measures the \gls{m/z}-and-intensity of each of these product ions to produce a raw \gls{MS2} spectrum.
+	\end{enumerate}
+	\item The computer stores this raw \gls{MS1}-or-\gls{MS2} spectrum.
+\end{enumerate}
+\item Optionally, a software preprocesses such raw mass spectra.
+\item A human expert or a software interprets such raw-or-preprocessed mass spectra. 
+\end{enumerate} \vspace{5pt}%~\\
+\noindent
+The following is the workflow of bottom-up proteomics.
+\begin{enumerate}[nolistsep]
+\label{bottom_up_proteomics}
+\item A protein mixture is prepared from cells or tissues.
+\item Proteins of interest are extracted from this protein mixture using a conventional molecular-biology technique, such as 1D gel electrophoresis.
+\item \Gls{LC-MS/MS} is performed on these proteins of interest.
+\end{enumerate} \vspace{5pt}%~\\
+\noindent
+The following is the workflow of \gls{RP-MS} for an investigated protein. %\Gls{RP-MS} is shown in \cref{fig:fund2:RPMS-schematics}.
+\begin{enumerate}[nolistsep]
+\item \Gls{FPOP} is performed on the investigated protein. 
+	\Gls{FPOP} is described in \cref{fig:fund2:schematics-FPOP}.
+\item \Gls{LC-MS/MS} is performed on the protein modified by \gls{FPOP}. 
+\end{enumerate}
+\caption[
+	Some workflows of protein \gls{MS}.]{
+	Some workflows of protein \gls{MS}. 	
+	\label{fig:fund2:wetlab-workflow}}
+\end{figure}
+
+\begin{figure}
+\center{
+\begin{tabular}{c|c}
+\begin{subfigure}{0.48\textwidth}{
+	\center{\includegraphics[page=10, bb=420 50 740 520, clip=true, width=\textwidth
+	,height=0.55\textheight
+	]{img/FPOP-Mass_Spec_09_L_Jones.pdf}}
+}
+\caption[]{
+	a simple schematic of \gls{RP-MS}. 
+	\label{fig:fund2:RPMS-schematics_all}}
+\end{subfigure}
+&
+\begin{subfigure}{0.48\textwidth}{
+	\center{\includegraphics[page=11, bb=420 50 740 520, clip=true, width=\textwidth
+	,height=0.55\textheight
+	]{img/FPOP-Mass_Spec_09_L_Jones.pdf}}
+}
+\caption[]{
+	a schematic of \gls{LC-MS} in \gls{RP-MS}. 
+	\label{fig:fund2:RPMS-schematics_LCMS}}
+\end{subfigure}
+\end{tabular}
+}
+\caption[
+	A schematic of \gls{RP-MS} \cite{jones2009comprehensive}.]{
+	A schematic of \gls{RP-MS} \cite{jones2009comprehensive}.
+	More details are presented in \cref{fig:fund2:wetlab-workflow}.
+	\label{fig:fund2:RPMS-schematics}
+}
+\end{figure}

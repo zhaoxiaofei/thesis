@@ -1,0 +1,138 @@
+%--------1---------2---------3---------4---------5---------6---------7---------8---------9---------1---------2---------3---------4---------5---------6
+%23456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+
+% The \appendix statement indicates the beginning of the appendices.
+\appendix
+
+% Add a title page before the appendices and a line in the Table of Contents
+\chapter*{APPENDICES}
+\addcontentsline{toc}{chapter}{APPENDICES}
+
+\section*{Our custom peak-detection algorithm}
+
+The intensity of a candidate peak is assumed to be proportional to the probability that this candidate peak is a true peak.
+And the respective generations of different peaks are assumed to be pairwise independent.
+Thus, the product of the respective intensities of different candidate peaks is assumed to be proportional to the probability that these candidate peaks are all true peaks.
+These candidate peaks can be respectively in different mass spectra but all have the same \gls{m/z}.		
+The continuous range of applicable \gls{m/z} is partitioned into connected and pairwise non-overlapping subranges of \gls{m/z}. 
+Each of these subranges spans 0.01 \gls{m/z}.
+Let \(p\) be probability that a first subrange contains at least one true peak.
+Let \(p'\) be the probability that another subrange near this first subrange contains at least one true peak.
+Then, \(p\) relative to \(p'\) is the likelihood that this first subrange contains at least one significant true peak.
+If this significant true peak does not overlap with any other peak that has already been picked, then this significant true peak is picked.
+		
+\glsunset{RT}
+\begin{algorithm}
+\def\MZ{\tfrac{M}{Z}}
+\def\mz{\tfrac{m}{z}}
+\def\inten{\text{Intensity}}
+\def\moz{\text{mz}}	
+\def\loginten{\text{sumLnInts}}
+\def\loglike{\text{lnLike}}
+\def\SA{{\mathit{1}}}
+\def\SB{{\mathit{2}}}
+\def\SX{{\mathit{k}}}
+\caption{detect-peaks(\(r_{\selectAnyFirst}\), \(r_{\selectAnySecond}\)) %, $\mz$, $t$
+\label{alg:NM:methods:peakdetection}
+}
+\begin{algorithmic}[1]
+\Require{
+	%$s$ is a sequence of \gls{MS2} spectra, $s'$ is another sequence of \gls{MS2} spectra;
+	%\(\{s, s'\}\) is \gls{iid};
+	%$s$ and $s'$ are produced from runs of \gls{LC-MS/MS} that take as input identical samples;
+	\(r_{\selectAnyFirst} \) is a sequence of \gls{MS2} spectra produced by a first  run of \gls{LC-MS/MS}, 
+	\(r_{\selectAnySecond}\) is a sequence of \gls{MS2} spectra produced by a second run of \gls{LC-MS/MS};
+	\(\big(r_{\selectAnyFirst}, r_{\selectAnySecond}\big)\) should be \gls{iid},
+		or equivalently the run that produced \(r_{\selectAnyFirst}\) and the run that produced \(r_{\selectAnySecond}\) should be {repeated}.		
+%	\(\forall s_{\bullet} \in s, s_{\bullet}' \in s' \colon 
+%		\text{premz}(s_{\bullet}) \approx \text{premz}(s_{\bullet}') \land
+%	 	\glstext{RT}(s_{\bullet}) \approx \glstext{RT}(s_{\bullet}')
+%	%\text{ are chemically identical to } \text{precursors}(s_{\bullet}') 
+%	\);
+%	\(\text{premz}(s_{\bullet}^{_{\circ}})\) is the \gls{m/z} of precursor ions selected for \gls{MS2}, 
+%		where such \gls{MS2} generates the \gls{MS2} spectrum \(s_{\bullet}^{_{\circ}}\);
+%		a mass spectrum is a sequence of (\gls{m/z}, intensity).
+	%where \(\text{precursor}(s_{\bullet}^{_{\circ}})\) is the set of all precursor-ion types that generate the \gls{MS2} spectrum \(s_{\bullet}^{_{\circ}}\).
+	 %of precursors generated both $S_\SA'$ and $S_\SB'$.		
+}
+\Ensure{the set of all \gls{m/z},
+		where each of these \gls{m/z} is the \gls{m/z} of a chemical species of product ions that is detected in both 
+			\(r_{\selectAnyFirst}\) and \(r_{\selectAnySecond}\).}
+\newline\textbf{We manually validated by visual inspection the output of this algorithm.}
+\State find a subsequence \(r_{\selectAnyFirst}'\) of \(r_{\selectAnyFirst}\) 
+		and a subsequence \(r_{\selectAnySecond}'\) of \(r_{\selectAnySecond}\)
+		such that
+		\begin{enumerate}
+		\item
+		the \gls{RT} of any spectrum \(s_{\selectAnyFirst}\)  in \(r_{\selectAnyFirst}'\) \(\approx\) 
+		the \gls{RT} of any spectrum \(s_{\selectAnySecond}\) in \(r_{\selectAnySecond}'\) and
+		\item
+		the precursor \gls{m/z} of any \(s_{\selectAnyFirst}\)  in \(r_{\selectAnyFirst}'\) \(\approx\) 
+		the precursor \gls{m/z} of any \(s_{\selectAnySecond}\) in \(r_{\selectAnySecond}'\).
+		\end{enumerate}
+\State \(\displaystyle \varDelta \isdefinedas \{\frac{-50}{100}, \frac{-49}{100}, ..., \frac{49}{100}, \frac{50}{100}\}\)
+		\Comment{Discretized values of \gls{m/z}}
+\State \(\displaystyle\loginten(\mz, r')
+		\isdefinedas\sum_{s \in r'}\left(\ln\left(1+\sum_{p \in s}\left(\inten(p)\cdot\mathbbm{1}[\mz < \gls{m/z} \text{ of } p \le \mz + \frac{1}{100}]\right)\right)\right)\)
+			\newline\Comment{sum of logarithm of peak intensity in every spectrum with add-one Laplace smoothing,
+			where \(p\) means peak, \(s\) means spectrum, and where \(r'\) means sequence of spectra}
+\State \(\displaystyle\loglike(\mz, r') 
+		\isdefinedas \loginten(\mz, r') - \frac{1}{101}\cdot\sum_{\delta \in \varDelta}	 \big(\loginten(\mz+\delta, r')\big)\)
+			\newline\Comment{log-likelihood at an \gls{m/z} relative to the background log-likelihood near this \gls{m/z}}
+%\begin{align}
+%\displaystyle\loginten(\mz', S'')
+%		&\isdefinedas\sum_{s'' \in S''}\bigg(\ln\Big(1+\sum_{p \in s''}\big(\inten(p)\cdot\mathbbm{1}[\mz' < \moz(p) \le \mz' + \frac{1}{100}]\big)\Big)\bigg) \\
+%\displaystyle\loglike(\mz', S'') 
+%		&\isdefinedas \loginten(\mz', S'') - \frac{1}{101}\cdot\sum_{\delta \in \varDelta}	 \big(\loginten(\mz'+\delta, S'')\big)
+%\\ \text{where~~} \varDelta& \isdefinedas \{\frac{-50}{100}, \frac{-49}{100}, ..., \frac{49}{100}, \frac{50}{100}\}
+%\end{align}		
+\State \(\displaystyle \MZ \isdefinedas \{\frac{1}{100}, \frac{2}{100}, ..., \frac{199999}{100}, \frac{200000}{100}\}\),
+		\(\displaystyle \MZ' \isdefinedas \emptyset\)
+		\Comment{Discretized values of \gls{m/z}}
+\While {\(\displaystyle\max_{\mz\in\MZ}\loglike(\mz, r_{\selectAnyFirst}') > \frac{\ln(200000)}{10} \land |\MZ'|<1000\)}
+	\State \(\displaystyle\mz\isdefinedas \argmax_{\mz\in\MZ}\loglike(\mz, r_{\selectAnyFirst}')\)
+	\State \(\displaystyle\MZ\isdefinedas \MZ \setminus \left(\bigcup_{\delta\in\varDelta} \left(\{\mz+\delta\}\right) \right)\)
+			\Comment{eliminate peaks that are adjacent in \gls{m/z}} 
+	\If{\(\displaystyle\loglike(\mz, r_{\selectAnySecond}')> \frac{\ln(200000)}{10} \land (\forall \mz'\in\MZ': {-3} < \mz'-\mz < 3)\)} 
+		\\\Comment{select intensity with high relative log-likelihood and naively avoid isotope}
+		\State \(\displaystyle\MZ'\isdefinedas \MZ' \cup \{\mz\}\)
+	\EndIf
+\EndWhile
+\State \Return \(\MZ'\)
+\end{algorithmic}
+\end{algorithm}
+
+\section*{Additional justification for using our empirical formula}
+
+\Cref{tab:NM:dataset:pep-seq} summarizes the dataset used for testing our empirical formula.
+\Cref{tab:oxlvl:6-tryptic-peptides} summarizes the dataset to which our empirical formula is applied.
+The comparison between these two datasets reveals the following discrepancy. 
+The \gls{RT} ranges in \cref{tab:oxlvl:6-tryptic-peptides} are typically much larger than the \gls{RT} ranges in \cref{tab:NM:dataset:pep-seq}.
+Thus, the following potential problem arises.
+Our empirical formula is perhaps not applicable to the dataset summarized in \cref{tab:oxlvl:6-tryptic-peptides}, 
+	because the errors in a smaller \gls{RT} range cannot be extrapolated to the errors in a larger \gls{RT} range.
+	
+Fortunately, our empirical formula is not affected by this potential problem. 
+The following two paragraphs explain why this potential problem is actually not a problem.
+
+First, each of the peptides in \cref{tab:oxlvl:6-tryptic-peptides} has most of its peak intensities concentrated at a few short \gls{RT} intervals.
+The length of each of these \gls{RT} intervals is similar to the length of any \gls{RT} range in \cref{tab:NM:dataset:pep-seq} (data not shown).
+Thus, the union of these \gls{RT} intervals is still larger, but not much larger, than a typical \gls{RT} range in \cref{tab:NM:dataset:pep-seq}.
+Thus, this problem is alleviated.
+
+Second, we merged the \gls{MS2} spectra of each peptide in \cref{tab:oxlvl:6-tryptic-peptides}. 
+The number of these merged \gls{MS2} spectra is approximately the number of the \gls{MS2} spectra of each peptide in \cref{tab:NM:dataset:pep-seq}.
+This merging step does not increase any error.
+After this merging step, the following is observed.
+The multiplicative random error captured by the constant \(\delta\) is still negligible compared with the shot noise captured by \cref{eq:NM:derivation:simplificationresult}.
+Also, this multiplicative random error and this shot noise should constitute most of the error in these merged mass spectra.
+Thus, the shot noise captured by \cref{eq:NM:derivation:simplificationresult} is sufficient for characterizing the random errors in the dataset summarized in \cref{tab:oxlvl:6-tryptic-peptides}.  	
+
+%% To include a Nomenclature section
+%\addcontentsline{toc}{chapter}{\textbf{Nomenclature}}
+%\renewcommand{\nomname}{Nomenclature}
+% %\printglossary[title=Nomenclature,toctitle=Nomenclature]
+\printglossary[type=s-this-symbs]
+\printglossary[type=c-math-defns]
+\printglossary[type=c-rpms-defns]
+\printglossary[type=\acronymtype,title=Acronyms in mass spectrometry]

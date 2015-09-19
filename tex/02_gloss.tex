@@ -1,0 +1,481 @@
+\newcommand{\R}[1]{} % has relationship with #1
+\newcommand{\rlink}[1]{\text{#1}}
+\usepackage[sort=standard,acronym,nomain,toc,section,nopostdot]{glossaries}
+
+\def\chemtype{c-rpms-defns}
+
+\SetCustomStyle
+%\setacronymstyle{short-long}
+
+\newglossary[md_lg]{c-math-defns}{md_ot}{md_tn}{Definitions in Mathematics}
+\newglossary[ms_lg]{c-rpms-defns}{ms_ot}{ms_tn}{Definitions in mass spectrometry}
+\newglossary[ts_lg]{s-this-symbs}{ts_ot}{ts_tn}{Definitions specific to this thesis}
+
+\newacronym{FPOP}               {\text{FPOP}}     {fast photochemical oxidation of protein}
+\newacronym{LC}                 {\text{LC}}       {liquid chromatography}
+  \R{asi}\newacronym{HPLC}      {\text{HPLC}}     {high-performance liquid chromatography}
+  \R{asi}\newacronym{RPHPLC}    {\text{RP-HPLC}}  {reverse-phase \gls{HPLC}}
+    \R{asi}\newglossaryentry{UPLC}{
+      type= \chemtype,
+     	name={\text{UPLC}},
+      description={ultra-performance liquid chromatography (UPLC), 
+	      which is a trademark of Waters Corporation for its high pressure \gls{HPLC}},
+      first={ultra-performance liquid chromatography (UPLC)},
+      plural={ERROR}, firstplural={ERROR}
+    }  	
+\newacronym{MS}                 {\text{MS}}       {mass spectrometry}
+  \R{uses}\newacronym{ESI}      {\text{ESI}}      {electrospray ionization}
+  \R{uses}\newacronym{QTOF}     {\text{QTOF}}     {quadrupole time-of-flight}
+  \newglossaryentry{MS/MS}{
+  	type=\chemtype,
+  	name={\text{MS/MS}},
+  	description={denotes ``tandem mass spectrometry''.},
+  	user1={Tandem mass spectrometry}
+  }
+    \R{uses}\newacronym{CID}    {\text{CID}}      {collision-induced dissociation}
+    \R{instate}\newacronym{DDA} {\text{DDA}}      {data-dependent acquisition}
+    \R{instate}\newacronym{DIA} {\text{DIA}}      {data-independent acquisition}
+\newacronym{RP-MS}               {RP-MS}          {radical-probe mass spectrometry}
+    \R{asi} %\newacronym{RP-MS/MS}    {\text{RP-MS/MS}} {radical probe tandem mass spectrometry}
+    \newglossaryentry{RP-MS/MS}{	
+    	type=\chemtype,
+    	name=subpeptide-level RP-MS,
+    	description={subpeptide-level radical-probe-mass-spectrometry.},
+    	first={subpeptide-level radical-probe-mass-spectrometry (subpeptide-level RP-MS)},
+    	plural={ERROR},
+    	firstplural={ERROR},
+    	%user1={Radical probe tandem mass spectrometry}
+    }
+  \R{has}\newacronym{RT}        {\text{RT}}       {\textnormal{retention time}}
+  \R{has}\newacronym{TIC}       {\text{TIC}}      {total     ion chromatogram}
+  \R{has}\newacronym{XIC}       {\text{XIC}}      {extracted-ion chromatogram}
+\newacronym{SASA}               {\text{SASA}}     {solvent-accessible surface area}
+\newacronym{PTM}                {\text{PTM}}      {post-translational modification}
+
+\newglossaryentry{PDB}{
+	type=\acronymtype,
+	name={\text{PDB}},
+	description={Protein Data Bank},
+	plural={ERROR},
+	first={PDB},
+	firstplural={ERROR}	
+}
+\newglossaryentry{PSM}{
+	type=\acronymtype,
+	name={\text{PSM}},
+	description={
+		peptide-spectrum match 
+		%which is the observed similarity between the theoretical mass spectrum of a peptide and an observed mass spectrum
+		},
+	plural={PSMs},
+	first={peptide-spectrum match (PSM)},	
+	firstplural={peptide-spectrum matches (PSMs)}	
+}
+\newglossaryentry{m/z}{
+	type=\chemtype,%c-chem-defns,
+	name={\ensuremath{\text{$m/z$}}},
+	description={
+		is the mass-to-charge ratio measured in \ensuremath{\si{\dalton}}.} 
+		%\ensuremath{\si{\dalton\per\elementarycharge}}. 
+%		Dalton (\si{\dalton}) or equivalently atomic mass unit (a.m.u.) is defined as \ensuremath{\frac{1}{12}} of the mass of an unbound neutral atom of carbon-12 in its nuclear and electronic ground state;
+%		\ensuremath{\si{\elementarycharge}} is defined as the elementary positive charge
+}
+
+\newglossaryentry{OH-rad} {
+	type=\chemtype,
+	name={\text{HO\textperiodcentered}}, 
+	description={is the symbol for hydroxyl radical.},
+	plural={\text{HO\textperiodcentered}},
+	first={hydroxyl radical ({\text{HO\textperiodcentered}})},
+	firstplural={hydroxyl radicals ({\text{HO\textperiodcentered}})},
+	symbol={\text{HO\textperiodcentered}}
+}
+\newglossaryentry{MS1} {
+	type=\chemtype, 
+	name={\text{MS\ensuremath{^1}}}, 
+	description={
+		is the first  stage in \gls{MS/MS} or the only stage in \gls{MS}; 
+			\gls{MS1} generates precursor ions and survey  scans.}
+}
+\newglossaryentry{MS2} {
+	type=\chemtype,
+	name={\text{MS\ensuremath{^2}}}, 
+	description={
+		is the second stage in \gls{MS/MS}; 
+			\gls{MS2} generates product   ions and product scans.}
+}
+\newglossaryentry{MSE} {
+	type=\chemtype, 
+	name={\text{MS\textsuperscript{E}}}, 
+	description={
+		is a mass-spectrometry technology pioneered by Waters Corporation \cite{plumb2006uplc};
+		in \gls{MSE}, \gls{CID} alternates between
+		low energy mode which produces \gls{MS1}-like spectra and high energy mode which produces \gls{MS2}-like spectra.}
+}
+\newglossaryentry{_UPLC} {
+	type=\chemtype,
+	name=\text{ultra-performance liquid chromatography}, 
+	description={is a trademark of Waters Corporation for its high pressure \gls{RPHPLC}.}
+}
+\newglossaryentry{LC-MS} {	
+	type=\chemtype,
+	name={\text{LC-MS}}, 
+	description={
+		is an analytical-chemistry technique using \gls{LC} and \gls{MS} 
+			such that the outlet of the \gls{LC} column is connected to the inlet of the \gls{MS} instrument.}
+}
+\newglossaryentry{LC-MS/MS} {	
+	type=\chemtype,
+	name={\text{LC-MS/MS}}, 
+	description={
+		is  an analytical-chemistry technique using \gls{LC} and \gls{MS/MS} 
+			such that the outlet of the \gls{LC} column is connected to the inlet of the \gls{MS/MS} instrument.
+	}
+}
+\newglossaryentry{UPLC-MS/MS}{
+	type=\chemtype,
+	name={\text{UPLC-MS/MS}}, 
+	description={\acrshort{LC-MS/MS} where the \acrshort{LC} in such \acrshort{LC-MS/MS} is specifically \gls{UPLC}.}
+}
+
+\newglossaryentry{IE}{
+	type=\acronymtype,
+	name={\text{IE}},
+	description={\text{iterative exclusion}},
+	first={iterative exclusion (IE)}
+}
+\newglossaryentry{IE-MS}{
+	type=\acronymtype,
+	name={\text{IE-MS}},
+	description=iterative-exclusion \glsfirst{MS},
+	first={iterative-exclusion mass spectrometry (IE-MS)}
+}
+
+\newglossaryentry{PRM}{
+	type=\chemtype,
+	name={\text{PRM}},
+	description={\text{Parallel reaction monitoring}},
+	first={parallel reaction monitoring (PRM)},
+	plural={ERROR},
+}
+
+\newcommand{\aIon}  {\ensuremath{a}}
+\newcommand{\bIon}  {\ensuremath{b}}
+\newcommand{\cIon}  {\ensuremath{c}}
+\newcommand{\xIon}  {\ensuremath{x}}
+\newcommand{\yIon}  {\ensuremath{y}}
+\newcommand{\zIon}  {\ensuremath{z}}
+\newglossaryentry{ox1}{
+	type=\chemtype,
+	name={\text{mono-oxidation}},
+	description={
+		is defined as a modification characterized by a mass shift of approximately \(15.99\si{\dalton}\) to a biomolecule;
+		\(15.99\si{\dalton}\) is approximately equal to the mass of one oxygen atom.}
+}
+\newglossaryentry{mono-oxidized}{
+	type=\chemtype,
+	name={\text{mono-oxidized}},
+	description={
+		denotes ``affected by \gls{ox1}''.}
+}
+\newglossaryentry{ox2}{
+	type=\chemtype,
+	name={\text{di-oxidation}},
+	description={
+		is defined as a modification that is characterized by a mass shift of approximately $31.98\si{\dalton}$
+		to an amino acid residue.}
+}
+
+
+% ========== ========== ========== ========== ========== NEW DEFINED TERMS
+
+%\newcommand{\OxOne}   {\text{\ensuremath{{\Delta}m{\approx}16} oxidation}}
+%\newcommand{\OxTwo}   {\text{\ensuremath{{\Delta}m{\approx}32} oxidation}}
+
+%\newcommand{\A}     {\ensuremath{A}}
+%\newcommand{\B}     {\ensuremath{B}}
+%\newcommand{\C}     {\ensuremath{C}}
+%\newcommand{\X}     {\ensuremath{X}}
+%\newcommand{\Y}     {\ensuremath{Y}}
+%\newcommand{\Z}     {\ensuremath{Z}}
+
+%\newglossaryentry{msymb:y:pep:to:ion}{
+%	type=s-this-symbs,
+%	name={\ensuremath{\ddot{\mathrm{y}}}}, 
+%	symbol={\ensuremath{\ddot{\mathrm{y}}}}, 
+%	description={
+%		is the function that is defined below. \newline
+%		\(\gls{msymb:y:pep:to:ion}_i^{\mathrm{mod}=n}(\mathrm{P}) \isdefinedas \mathrm{Y}\)
+%		with the following specifications.
+%		\begin{itemize}[nolistsep]
+%		\item \(\mathrm{P}\) is required   to be a type of peptide.
+%		\item \(\mathrm{mod}\) is required to be a type of chemical modification, and \(n \in \{0, 1\}\).
+%		\item \(\mathrm{Y}\) is guaranteed to be the type of \(\texttt{y}_i\)-ion of \(\mathrm{P}\).
+%		\item \(\mathrm{Y}\) is guaranteed to have exactly $n$ modifications of type \(\mathrm{mod}\).
+%		\end{itemize}
+%		\(\gls{msymb:y:pep:to:ion}_i^{\mathrm{mod}=n}(\mathrm{P})\) represents a particular type of y-ion that \(\mathrm{P}\) can generate}
+%}
+%\newglossaryentry{msymb:y:ms2_pep:to:AUCXIC}{
+%	type=s-this-symbs,
+%	name=  {\ensuremath{\ddot{\mathfrak{y}}}}, 
+%	symbol={\ensuremath{\ddot{\mathfrak{y}}}},
+%	description={
+%		is the function that is defined below. \newline
+%		\(\gls{msymb:y:ms2_pep:to:AUCXIC}_i^{\mathrm{mod}=n}(s'', P) \isdefinedas 
+%			\gls{AUCXIC}\big(s'', (\gls{msymb:y:pep:to:ion}(\mathrm{P}))\big) \) 
+%		with the following specifications.
+%		\begin{itemize}[nolistsep]
+%		\item $s''$ is required to be a collection of \gls{MS2} spectra and
+%		\item \(P\) is required to be a type of peptide.
+%		\end{itemize}
+%		\(\gls{msymb:y:ms2_pep:to:AUCXIC}_i^{\mathrm{mod}=n}(s'', P)\) represents the signal intensity of \(P\) in \(s''\)}
+%}
+%
+%\newglossaryentry{mysymb:y:molecule:to:formationevent}{
+%	type=s-this-symbs,
+%	symbol={\ensuremath{\ddot{\mathbbm{y}}}},
+%	name=\noindent,
+%	description={
+%		\(\glssymbol{mysymb:y:molecule:to:formationevent}_i(p) \isdefinedas
+%			\text{(the event that $p$ generates 
+%				$y$ 
+%			such that 
+%				$y\in\glssymbol{msymb:y:pep:to:ion}_i^{\mathrm{mod}=n}(P)$)}\)
+%	where
+%		\begin{itemize}[nolistsep]
+%		\item \(p\) is required to be exactly one peptide of type $P$.
+%		\end{itemize}
+%	}
+%}
+
+% ========== ========== ========== ========== ========== TECHNICAL TERMS
+
+\newglossaryentry{gg:M}{
+		name={\ensuremath{\ddot{\text{M}}}}, 
+		symbol={\ensuremath{\ddot{\text{M}}}},
+		description={is any type of any collection of molecules}
+}
+
+\newglossaryentry{gg:mz}{
+	name={}, 
+	symbol={mz},
+	description={
+		\(\glssymbol{gg:mz}(m) \isdefinedas \text{\gls{m/z} value of $m$, given $m\in $}\)
+	}
+}
+\DeclareMathOperator{\funcmz}{\glssymbol{gg:mz}}
+\newglossaryentry{f:Mz}{
+	name={}, 
+	symbol={mz},
+	description={
+		\(\glssymbol{gg:Mz}(M) \isdefinedas \text{\gls{m/z} value of $M$, given $M \subseteq M$}\)
+	}
+}
+\DeclareMathOperator{\funcMz}{\glssymbol{f:Mz}}
+
+\newglossaryentry{TICIntensity}{
+	type=s-this-symbs,
+	name={\text{TIC}}, 
+	symbol={\text{TIC}},
+	description={
+	is a function such that \(\gls{TICIntensity}(s)\) is the sum of the respective intensities at all applicable \gls{m/z} values in the mass spectrum \(s\);
+	\(\gls{TICIntensity}(s)\) represents the intensity of all ions detected in \(s\).  
+	}
+}
+\newglossaryentry{XICIntensity}{
+	type=s-this-symbs,
+	name={\text{XIC}}, 
+	symbol={\text{XIC}},
+	description={
+	is a function that outputs the absolute intensity of some investigated molecules in a mass spectrum;
+		\(\gls{XICIntensity}(M, s)\) is the sum of the respective intensities of the peaks generated by \(M\) in \(s\),
+			given that \(s\) is a mass spectrum,
+			and that \(M\) is some investigated molecules.}
+			%and that \(M\) is a conceptual molecule which denotes s set of chemically identical and concrete molecules.}
+}
+\newglossaryentry{AUCXIC}{
+	type=s-this-symbs,
+	name={\text{peak-area}}, 
+	symbol={\text{peak-area}},
+	description={
+	is a function that outputs the area under the curve of an \gls{XIC};
+%	is the definite integral of the \gls{XIC} of a collection of molecules,
+%		where the domain of such integral is the \gls{RT} of such collection of molecules
+%		and the unit of the y-axis of such \gls{XIC} is ion count or equivalently absolute intensity. 
+	let \(M\) be a class of molecules, %, a conceptual molecule which denotes a set of chemically identical and concrete molecules,
+		let \(r\) be a set of mass spectra generated by one run of \gls{LC-MS} or of \gls{LC-MS/MS};
+	%let \(x\) be the \glstext{XIC} of $P$ such that $x$ is extracted from $s$,
+	%	let \(r\) be the \glstext{RT} range of \(P\) in \(s\); 
+	then,
+		\(\glssymbol{AUCXIC}(M, r) \isdefinedas \sum_{s \in r} \gls{XICIntensity}(M, s)\),
+		so \(\glssymbol{AUCXIC}(M, r)\) represents the total absolute quantity of \(M\) detected in \(r\). 
+	}
+}
+
+\newglossaryentry{typeof:ox=1:pep}{
+	type=s-this-symbs,
+	name={\ensuremath{\boldsymbol{P}'}}, 
+	user1={
+			is defined as a chemical superspecies of \gls{mono-oxidized} peptides that are chemically identical up to structural isomerism,
+			where this isomerism is only due to the fact that any site on any residue can be \gls{mono-oxidized}},
+	description={
+			\glsentryuseri{typeof:ox=1:pep};
+			%which entered a given mass spectrometer such that
+			%all $p{\in}\gls{ox=1:pep}$ have the same sequence of residues,
+			%every $p{\in}\gls{ox=1:pep}$ is labeled with exactly one \gls{ox1},
+			%every $p{\in}\gls{ox=1:pep}$ is free of any covalent modification except such \gls{ox1}, 
+			%and for every $p{\in}\gls{ox=1:pep}$ its \gls{ox1} can be located at any site of any of its residues.
+		for example, \gls{typeof:ox=1:pep} can be any of the following:
+			\{\texttt{F[+16]DK}\},
+			\{\texttt{Y[+16]K}, \texttt{Y[+16]K}\},
+			\{\texttt{Y[+16]K}, \texttt{YK[+16]}\},
+			and \{\texttt{Y[+15.99]K}, \texttt{Y[+16]K}\};
+		however, \gls{typeof:ox=1:pep} cannot be any of the following:
+			\{\texttt{Y[+16]K}, \texttt{Y[+16]K[+16]}\}, 
+			\{\texttt{Y[+16]K}, \texttt{YK}\}, 
+			\{\texttt{Y[+32]K}\},
+			\{\texttt{Y[+16]K}, \texttt{Y[+16]K[+14]}\},
+			and \{\texttt{Y[+16]K}, \texttt{Y[-16]K}\}.}
+}	
+%\newglossaryentry{typeof:ox=1:pep}{
+%	type=s-this-symbs,
+%	name={\ensuremath{\dot{P}'}}, 
+%	description={is the type of \gls{ox=1:pep}}
+%}
+\newglossaryentry{typeof:ox=0:pep}{
+	type=s-this-symbs,
+	name={\ensuremath{\boldsymbol{P}}}, 
+	user1={
+			is defined as a chemical species of unoxidized peptides},
+	description={
+		\glsentryuseri{typeof:ox=0:pep};
+%		is a collection of all peptides which entered a given mass spectrometer such that
+%			all $p{\in}\gls{ox=0:pep}$ have the same sequence of residues
+%			and every $p{\in}\gls{ox=0:pep}$ is free of any covalent modification.
+	for example, \gls{typeof:ox=0:pep} 
+		can be \{\texttt{FDK}, \texttt{FDK}\}, 
+		can be \{\texttt{ALELFR}\},
+		cannot be     \{\texttt{FDK}, \texttt{FKD}\},
+		and cannot be \{\texttt{FDK}, \texttt{F[+16]DK}\}.}
+}	 
+%\newglossaryentry{typeof:ox=0:pep}{
+%	type=s-this-symbs,
+%	name={\ensuremath{\dot{P}}}, 
+%	description={is the type of \gls{ox=0:pep}}
+%}
+
+
+
+\newglossaryentry{stat:indep}{
+	type=c-math-defns, 
+	name={\ensuremath{\perp}}, 
+	description={
+		is the statistical independence indicator;
+		\(A \perp B\) indicates that the random variables \(A\) and \(B\) are statistically independent.}
+}
+\newglossaryentry{iid}{
+	type=c-math-defns,
+	name={\ensuremath{\text{iid}}}, 
+	description={denotes ``independent and identically distributed''.}
+}
+\newglossaryentry{E}{
+	type=c-math-defns,
+	name={\ensuremath{\textnormal{E}}}, 
+	description={is the expectation operator; 
+		\(\E[X]\) is the expected value of the random variable \(X\) or equivalently the mean of \(X\).}
+}
+\DeclareMathOperator*{\E}{\gls{E}}
+\newglossaryentry{VAR}{
+	type=c-math-defns,
+	name={\ensuremath{\textnormal{var}}}, 
+	description={is the variance operator; 
+		\(\VAR[X]\) is the statistical variance of the random variable \(X\).}
+}
+\DeclareMathOperator*{\VAR}{\gls{VAR}}
+%\newglossaryentry{rpois}{
+%	type=c-math-defns,
+%	name={\ensuremath{\textnormal{Pois}}}, 
+%	description={
+%		is the random variable generator for the Poisson distribution, 
+%			where $\rpois(\lambda)$ has a single parameter $\lambda$}}
+%\DeclareMathOperator{\rpois}{\gls{rpois}}
+%\newglossaryentry{rbeta}{
+%	type=c-math-defns,
+%	name={\ensuremath{\textnormal{Beta}}}, 
+%	description={is the random variable generator for the Beta distribution,
+%			where $\rbeta(\alpha, \beta)$ has shape parameters $\alpha$ and $\beta$}
+%}
+%\DeclareMathOperator{\rbeta}{\gls{rbeta}}
+%\newglossaryentry{rgamma}{
+%	type=c-math-defns,
+%	name={\ensuremath{\textnormal{Gamma}}}, 
+%	description={is the random variable generator for the Gamma distribution,
+%			where $\rgamma(k,\theta)$ has shape parameter $k$ and scale parameter $\theta$}
+%}
+%\DeclareMathOperator{\rgamma}{\gls{rgamma}}
+\newglossaryentry{rnorm}{
+	type=c-math-defns,
+	name={\ensuremath{\mathcal{N}}}, 
+	description={is the random-variable generator for the normal distribution.
+		\(\rnorm(\mu, \sigma^2)\) has a mean of \(\mu\) and a variance of \(\sigma^2\).}
+}
+\DeclareMathOperator{\rnorm}{\gls{rnorm}}
+%\newglossaryentry{Unif}{
+%	type=c-math-defns,
+%	name={\ensuremath{\mathcal{U}}}, 
+%	description={
+%		is the uniform distribution over a set of elements.
+%		$\Unif(S)$ outputs an element $s{\in}S$ uniformly at random given a set $S$ of elements.
+%		$\Unif^{n}(S)$ outputs a set $S'{\subseteq}S$ of $n$ elements given a set $S$ of elements 
+%			such that $S'{\overset{\gls{iid}}{\sim}}\Unif(S)$. 	
+%		$\Unif^{n}(S)$ is equivalent to simple random sampling of $n$ elements from $S$ with replacement}
+%}
+%\DeclareMathOperator{\Unif}{\gls{Unif}}
+%\newglossaryentry{suchthat}{
+%	type=c-math-defns,
+%	name={\ensuremath{\Big\rvert}}, 
+%	description={
+%		means ``such that''. 
+%		$A{\suchthat}f(A)$ is the subset of the set $A$ such that $f(A)$ is true, 
+%			where $f$ is an indicator function}}
+%\DeclareMathOperator{\suchthat}{\gls{suchthat}}
+%\newglossaryentry{best}{
+%	type=c-math-defns,
+%	name={\ensuremath{\textnormal{best}}}, 
+%	description={
+%		is a comparator.
+%		If $a$ is better than $b$, then $\best(a,b)$ outputs $a$;
+%		if $b$ is better than $a$, then $\best(a,b)$ outputs $b$.
+%		$\best_{s{\in}S}(s)$ outputs a $s^*{\in}S$ such that $s^*$ is better than any other $s'{\in}S\setminus{s^*}$}
+%}
+%\DeclareMathOperator*{\best}{\gls{best}}
+%\DeclareMathOperator*{\argbest}{arg\,\gls{best}}
+
+\newglossaryentry{isApproximatelyDistributedAs}{
+	type=c-math-defns,
+	name={\glssymbol{isApproximatelyDistributedAs}}, 
+	description={denotes ``is approximately distributed as''.},
+		symbol={\ensuremath{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily app}}}{\sim}}}}
+}
+\DeclareMathOperator{\isappdistas}{\glssymbol{isApproximatelyDistributedAs}}
+
+%\newglossaryentry{NHPP}{
+%	type=c-math-defns, 
+%	name={\text{NHPP}}, 
+%	description={non-homogeneous Poisson process},
+%	first={non-homogeneous Poisson process (NHPP)},
+%	plural={NHPPs}, firstplural={non-homogeneous Poisson processes (NHPPs)}
+%}
+
+\makeglossaries
+
+%\newacronym{ASA}{\text{ASA}}{Accessible Surface Area}
+%\DeclareMathOperator*{\f}{\mathit{f}}
+%\DeclareMathOperator*{\g}{\mathit{g}}
+%\newglossaryentry{arg}{name={\textnormal{arg}},
+%	description={
+%	is a selector.
+%	$\displaystyle{\arg\,\f}_{s{\in}S}(\g(s))$ outputs $s^{*}{\in}S$ such that $\f_{s{\in}S}(\g(s)) = g(s^*)$,
+%	where $\f$ and $\g$ are two functions
+%	}
+%}

@@ -1,0 +1,208 @@
+% T I T L E   P A G E
+% -------------------
+% Last updated May 24, 2011, by Stephen Carr, IST-Client Services
+% The title page is counted as page `i' but we need to suppress the
+% page number.  We also don't want any headers or footers.
+\pagestyle{empty}
+\pagenumbering{roman}
+
+\newtoggle{showTitlepage}
+\toggletrue{showTitlepage}
+\iftoggle{showTitlepage} {
+
+% The contents of the title page are specified in the "titlepage"
+% environment.
+\begin{titlepage}
+        \begin{center}
+        \vspace*{1.0cm}
+        
+        \Huge
+	      {\bf Improving Spatial Resolution of and Error Estimation for Radical Probe Mass Spectrometry}
+        
+        \vspace*{1.0cm}
+        
+        \normalsize
+        by \\
+        
+        \vspace*{1.0cm}
+        	
+        \Large
+        XiaoFei Zhao \\
+        
+        \vspace*{3.0cm}
+        
+        \normalsize
+        A thesis \\
+        presented to the University of Waterloo \\ 
+        in fulfillment of the \\
+        thesis requirement for the degree of \\
+        Master of Mathematics \\
+        in \\
+        Computer Science \\
+        \vspace*{2.0cm}
+        
+        Waterloo, Ontario, Canada, 2015 \\
+        
+        \vspace*{1.0cm}
+        
+        \copyright\ XiaoFei Zhao 2015 \\
+        \end{center}
+\end{titlepage}
+
+% The rest of the front pages should contain no headers and be numbered using Roman numerals starting with `ii'
+\pagestyle{plain}
+\setcounter{page}{2}
+
+\cleardoublepage % Ends the current page and causes all figures and tables that have so far appeared in the input to be printed.
+% In a two-sided printing style, it also makes the next page a right-hand (odd-numbered) page, producing a blank page if necessary.
+ 
+
+
+% D E C L A R A T I O N   P A G E
+% -------------------------------
+  % The following is the sample Declaration Page as provided by the GSO
+  % December 13th, 2006.  It is designed for an electronic thesis.
+  \noindent
+I hereby declare that I am the sole author of this thesis. This is a true copy of the thesis, including any required final revisions, as accepted by my examiners.
+
+  \bigskip
+  
+  \noindent
+I understand that my thesis may be made electronically available to the public.
+
+\cleardoublepage
+%\newpage
+
+% A B S T R A C T
+% ---------------
+\begin{center}\textbf{Abstract}\end{center}
+
+% -> Why did I do it
+The function of a protein depends on the structure of this protein.
+A commonly used analytical technique for studying protein structure is \gls{RP-MS}.
+\Gls{RP-MS} oxidizes a protein of interest then quantitates the oxidation on this protein.
+Such quantitations can probe the \gls{SASA} of this protein.
+This \gls{SASA} can be used for studying the structure of this protein.
+Thus, the spatial resolution of such quantitations of oxidation is the spatial resolution at which protein folding can be studied.
+% -> What did I do
+This thesis proposes a computational method for increasing, by many times, the spatial resolution of such quantitations of oxidation.
+% -> How did I do it
+Traditional \gls{RP-MS} can already quantitate the oxidation on a peptide of a protein.
+\gls{MS/MS}, an analytical technique, can fragment a peptide into the suffixes of this peptide.
+Thus, the fraction of such individual suffixes of length \(i\) that are oxidized is the relative frequency that one of the last \(i\) residues of this peptide is oxidized.
+Thus, two such suffixes of lengths \(i\) and \(j\), where \(i>j\), correspond to two such frequencies.
+Thus, the difference between these two frequencies is the frequency that the oxidation on this peptide is inclusively between the \(i\)\textsuperscript{th}-last and \((j+1)\)\textsuperscript{th}-last residues of this peptide.
+The oxidation between these two residues is used by our computational method to quantitate oxidation at subpeptide level.
+% -> Prove that it works
+Such quantitated oxidation extents match the previously published oxidation rates and are computed from an \gls{MS/MS} dataset. 
+The \gls{MS/MS} dataset is produced by a specially designed \gls{RP-MS} experiment.
+This \gls{RP-MS} experiment used \gls{MS/MS} that targeted six tryptic peptides of apomyoglobin (\gls{PDB} \texttt{1WLA}).
+
+% -> Why did I do it
+However, such quantitations of oxidation are not precise, mostly because random errors exist in such fraction of the suffixes that are oxidized.
+Such fraction is a type of \gls{AUCXIC} fraction.
+A \gls{AUCXIC} fraction represents, in a sample, the quantity of a type of molecules relative to another type of molecules.
+% -> What did I do and how did I do
+To estimate random errors in a \gls{AUCXIC} fraction, we made three reasonable assumptions partially justified in the literature.
+From these assumptions, we mathematically deduced our empirical formula.
+Our empirical formula estimates random errors in a \gls{AUCXIC} fraction that is observed in only one run of mass spectrometry.
+% -> Proved that it works
+Such estimated random errors match the empirically observed random errors in a test dataset.
+The test dataset is generated by three almost repeated runs of \gls{MS/MS}.
+% -> Why it is applicable to quantitation of oxidation
+To generate the test dataset and the \gls{MS/MS} dataset, the same instrument analyzed, with similar configurations, two similar samples.
+Thus, our empirical formula is used for estimating random errors in such quantitation of oxidation in the \gls{MS/MS} dataset.
+
+The throughput of \gls{MS/MS} is lower than the throughput of \gls{MSE} by orders of magnitude.
+Unfortunately, we showed that, currently, \gls{MSE} almost certainly cannot improve the spatial resolution of \gls{RP-MS}
+	presumably because \gls{MSE} generates too much noise.
+		
+\cleardoublepage
+% A C K N O W L E D G E M E N T S
+% -------------------------------
+\begin{center}\textbf{Acknowledgements}\end{center}
+%I would like to thank all the people who made this possible.
+I would like to first express my sincere gratitude to my supervisor, 
+	Professor Bin Ma, 
+	for finding such an interesting interdisciplinary research project for me,
+	for guiding me through my project, 
+	and especially for improving my scientific-writing skill.
+	
+I would like to express my gratitude to
+		Professor Lars Konermann 
+		for improving my knowledge in Chemistry.
+
+I would like to express my gratitude to
+		Siavash Vahidi 
+		for performing some important wet laboratories,
+	because the foundation of my project is based on these wet laboratories. 
+
+I would like to thank my committee members, 
+		Professor Ming Li and Professor Forbes Burkowski, 
+		for reading and examining this thesis.
+
+I would like to thank all other members of the Bioinformatics research group at the University of Waterloo
+		(Dr Hao Lin, Dr Lin He, Dr XueFeng Cui, Dr Laleh Soltan Ghoraie, ShiWei Li, XiaoBo Li, and Eric Marinier) 
+		for having some interesting discussions about my project.
+
+I would like to thank
+		the University of Waterloo
+		for providing a world-class graduate-level education to me.
+
+%I would like to thank my alma mater,
+%	McGill University,
+%	from which I received my Bachelor of Science in Computer Science and Biology,
+%	for the invaluable background knowledge in Computer Science and Biology that I acquired while attending it,
+%	which implicitly helped me in my project.
+
+%I would like to thank Xerox Research Center Europe,
+%	at which I did an internship in Machine Learning,
+%	for the invaluable knowledge and experience in Machine Learning and Mathematical Modeling that I gained while working for it,
+%	which ultimately helped me in my project. 
+
+\cleardoublepage
+\begin{center}\textbf{Dedication}\end{center}
+%This is dedicated to the one I love.
+This thesis is dedicated to my parents for the unconditional love that they gave to me.
+\cleardoublepage
+
+}{}
+
+% T A B L E   O F   C O N T E N T S
+% ---------------------------------
+\renewcommand\contentsname{Table of Contents}
+\tableofcontents
+\cleardoublepage
+\phantomsection
+% L I S T   O F   T A B L E S
+% ---------------------------
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+\cleardoublepage
+\phantomsection		% allows hyperref to link to the correct page
+% L I S T   O F   F I G U R E S
+% -----------------------------
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+\cleardoublepage
+\phantomsection		% allows hyperref to link to the correct page
+
+% L I S T   O F   S Y M B O L S	
+% -----------------------------
+
+% To include a Nomenclature section
+%\addcontentsline{toc}{chapter}{\textbf{Nomenclature}}
+%\renewcommand{\nomname}{Nomenclature}
+ %\printglossary[title=Nomenclature,toctitle=Nomenclature]
+ 
+ %\printglossary[title=List of Symbols,toctitle=List of Symbols]
+ %\printglossary[type=s-this-symbs, title=List of Symbols,toctitle=List of Symbols] 
+% \printglossary[title=Nomenclature]
+ \cleardoublepage
+ \phantomsection % allows hyperref to link to the correct page
+ \newpage
+
+% Change page numbering back to Arabic numerals
+\pagenumbering{arabic}
+
+\glsresetall

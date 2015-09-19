@@ -1,0 +1,97 @@
+%--------1---------2---------3---------4---------5---------6---------7---------8---------9---------1---------2---------3---------4---------5---------6
+%23456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+
+\glsunsetall
+\chapter{Fundamentals of protein folding}
+\label{chap:fund1}
+\glsresetall
+
+%Every biological organism is partially made of some proteins.
+
+A peptide is a sequence of \(n\) amino-acid residues chained together by \(n{-}1\) peptide bonds, where \(n{\ge}2\).
+In this thesis, ``residue'' refers to only ``amino-acid residue'' unless explicitly stated otherwise.
+A polypeptide is a relatively long peptide.	
+Every polypeptide is composed of almost only the 20 standard amino-acid residues.{} 
+Different sequences of these 20 residues correspond to different polypeptides.
+Thus, a lot of different polypeptides can exist, because there are \(20^n\) distinct sequences that have a length of \(n\).
+Although the number of polypeptides in a typical biological organism is much less than \(20^n\), this number is still huge.
+A protein is an assembly of at least one polypeptide. 
+Almost every protein is found in at least one biological organism.
+Almost every protein catalyzes a metabolic reaction that is often essential for the survival of at least one biological organism. 
+The metabolism of every biological organism requires numerous proteins.
+
+The structure of a protein is strongly correlated with the function of this protein. 
+Thus, determination of protein structure is a fundamental problem in life science. 
+Protein structure can be observed at different resolutions.
+Four levels of such resolutions correspond to the following four types of protein structures: primary, secondary, tertiary, and quaternary structures. 
+The primary structure of a protein is defined as the sequence of the constituent residues of this protein.{}
+The covalent bonds in a protein fully determine the primary structure of this protein. 
+The secondary structure of a protein is defined as the position of every residue of this protein relative to the residues that are sequentially near this residue.
+The non-covalent bonds in a protein fully determine the secondary structure of this protein.{}
+Alpha helices and beta strands are the most common protein secondary structures.
+Random coil is defined as the lack of any secondary structure. 
+The tertiary structure of a protein is defined as the three-dimensional shape of this protein.
+The quaternary structure of a protein is defined as the three-dimensional shape of this protein when interacting with other macromolecules. 
+
+Determination of the primary structure of a protein is very easy. 
+The state-of-the-art predictors of protein secondary structure achieve an accuracy of approximately 90\% \cite{6217208}.
+Moreover, a lot of experimental methods such as nuclear magnetic resonance (NMR) can determine protein secondary structure.
+Thus, determination of the secondary structure of a protein is easy.
+Experimental methods for determining the tertiary structure of a protein are labor-intensive and time-consuming,
+	and computational methods for determining the tertiary structure of a protein suffer from exponential runtime complexity and are not reliable.
+Thus, determination of the tertiary structure of a protein is hard.
+It is very hard to determine the quaternary structure of a protein. 
+Nowadays, determination of the tertiary structure of a protein is still a major challenge. 
+In this thesis, ``protein structure'' refers to only ``tertiary protein structure'' unless explicitly stated otherwise. 
+
+Protein structure is not static. 
+The structure of a protein depends on the physiological environment that surrounds this protein. 
+For example, in an acidic solution at pH\(\approx\)2, a protein usually does not assume any shape at all. 
+Thus, every residue of this protein is exposed to this acidic solution, and this protein is referred to as denatured.
+Denaturation is defined as the process by which a macromolecule loses its quaternary structure, tertiary structure, and then secondary structure.   
+We can view the structure of a protein as a point on a high-dimensional energy landscape. 
+On this landscape, the altitude of a coordinate represents the energy of a conformation. 
+Every protein tends to adopt a low-energy conformation.
+This tendency is consistent with the second law of thermodynamics because high entropy is associated with low-energy conformation. 
+A change in the coordinate of a point on the energy landscape corresponds to a change in the conformation of a protein. 
+A path from one coordinate to another coordinate on the energy landscape corresponds to a transition from one conformation to another conformation. 
+When a new protein is just synthesized, this new protein usually does not have its intended structure and thus is usually not functional yet.{} 
+Then, the structure of this new protein changes until this structure stabilizes at a local minimum on the energy landscape.{} 
+Then, this protein is able to perform its intended function due to its stable structure and is thus functional.
+The process by which a protein becomes functional by assuming its intended structure is referred to as protein folding.
+This intended structure is referred to as its native structure.
+
+A few methods have been developed for studying protein structures. 
+Unfortunately, all these methods have some weaknesses.
+For example, X-ray crystallography is neither effective for membrane proteins nor effective for studying protein-folding dynamics;
+	NMR is labor-intensive, time-consuming, and not effective for studying protein-folding dynamics.  
+
+The \glsfirst{SASA}, also known as accessible surface area (ASA), of a biomolecule is the part of the surface area of this biomolecule such that this part can be accessed by the solvent in which this biomolecule is dissolved.{}
+In protein-related scientific fields, this biomolecule usually refers to a protein of interest and this solvent usually refers to water.
+Change in the	\gls{SASA} of a protein as a function of the time since this protein started to fold can reveal the following trend:
+	this protein's surface that is exposed to water as a function of this time.
+This trend can then partially reveal the folding dynamics of this protein.
+		
+Any amino-acid residue of any protein can be covalently modified by the solution that contains this protein.	
+Let us assume that a treatment does not change the composition of the solution for a substantial period of time.
+If this solution covalently modifies this residue more heavily after this treatment, then this residue is more solvent-accessible after this treatment, and vice versa.
+Thus, change in the extent of this covalent modification on this residue is positively correlated with change in the solvent-accessibility of this residue.
+Thus, change in the extent of this covalent modification on every residue of a protein of interest can reveal change in \gls{SASA} of this protein. 
+		
+\Gls{RP-MS} can estimate the \gls{SASA} of a protein.
+An \gls{RP-MS} experiment usually proceeds as follows.
+First, a protein of interest is tuned to be at a given stage of protein folding.
+Next, a source of energy such as ultraviolet light generates short-lived free radicals such as \gls{OH-rad}.{}
+Then, these free radicals cause covalent modifications, which mainly consist of \gls{ox1}, to the solvent-accessible surface of this protein of interest.
+Afterwards, a protease such as trypsin cleaves this protein of interest into shorter peptides which could have been modified by these free radicals.
+Finally, \gls{LC} elutes and thus separates the mixture of these shorter peptides.{}
+While \gls{LC} is eluting these shorter peptides, \gls{MS} identifies these peptides and quantitates the extent of oxidation on each of theses peptides.
+A protein of interest goes through different stages in the folding process of this protein.
+These different stages result in different extents of covalent modification on the residues of this protein of interest, respectively.
+Thus, changes in the \gls{SASA} of this protein of interest across these different stages can be inferred,
+Thus, \gls{RP-MS} can be used for studying protein-folding dynamics.
+Moreover, \gls{RP-MS} is fast, cost-efficient, applicable to any protein, and able to detect a rapid change in protein structure.
+Unfortunately, a protease usually only cleaves a protein at a few backbones of this protein. % or equivalently cleavage sites
+Thus, a protease usually cleaves a protein into only a few long peptides.
+Thus, each of these long peptides is composed of several residues.
+Thus, the spatial resolution of \gls{RP-MS} is limited to the peptide level that is determined by this protease.

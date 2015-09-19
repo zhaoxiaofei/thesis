@@ -1,0 +1,633 @@
+%--------1---------2---------3---------4---------5---------6---------7---------8---------9---------1---------2---------3---------4---------5---------6
+%23456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+
+\glsunsetall
+\chapter{Quantitating \texorpdfstring{\gls{ox1}}{mono-oxidation} at subpeptide level}
+\label{chap:oxlvl}
+\glsresetall
+
+\def\oxZero{}
+\def\oxOne{'}
+
+\begin{figure}[tpbh]
+	\begin{framed}
+\begingroup
+\thinmuskip=0mu \medmuskip=0mu \thickmuskip=0mu
+\noindent
+\begin{tikzpicture}
+\scriptsize
+\tikzset{
+	rblock/.style={draw, shape=rectangle,                      align=right, minimum width=1cm,minimum height=1cm},
+	block/.style= {draw, shape=rectangle,rounded corners=1.5em,align=center,minimum width=3cm,minimum height=1cm},
+	lblock/.style={draw, shape=rectangle,                      align=center,minimum width=3.5cm,minimum height=1cm},
+}
+\node[rblock](1st){
+	\bf{Peptides} \\ 
+	200 \texttt{(ABC)(+16)} \\
+	600 \texttt{ABC}
+};
+\node[block,right=.2cm of 1st](cid){
+	\Gls{MS1} processes such as \\ physical change, chemical change, \\ ionization, etc.
+};	
+\node[rblock, right=.2cm of cid](2nd){
+	\bf{Precursor ions}     \\     
+	50  \texttt{(ABC)(+16)} \\
+	150 \texttt{ABC}
+	};
+\node[rblock, right=.2cm of 2nd](3rd){
+	\bf{Precursor ions}\\
+	\( \displaystyle\frac{\texttt{{(ABC)(+16)}}}{{\texttt{(ABC)(+16)} + \texttt{ABC}}} = \frac{50} {50+150}  = \frac{1}{4} \)
+};
+\path[draw,->, thick] (1st) edge (cid)  (cid) edge (2nd)  (2nd) edge (3rd);
+\end{tikzpicture}
+\\ {} \\\noindent
+\begin{tikzpicture} %[>=latex']
+	\scriptsize
+	\tikzset{
+		rblock/.style={draw, shape=rectangle,                      align=right, minimum width=1cm,minimum height=1cm},
+		block/.style= {draw, shape=rectangle,rounded corners=1.5em,align=center,minimum width=3cm,minimum height=1cm},
+		lblock/.style={draw, shape=rectangle,                      align=center,minimum width=3.5cm,minimum height=1cm},
+	}
+	\node[rblock](1st){
+		\bf{Peptides} \\ 
+		80  \texttt{ABC(+16)}\\~\\~\\
+		40  \texttt{AB(+16)C}\\~\\~\\
+		120 \texttt{A(+16)BC}\\~\\~\\
+	};
+	\node[block,right=.2cm of 1st](cid){
+		\gls{MS1}-and-\gls{MS2} \\ processes such as \\ physical change, \\ chemical change, \\ ionization, \\ fragmentation, \\ etc.
+	};
+	\node[rblock, right=.2cm of cid](2nd){
+		\bf{y-ions}     \\     
+		6  \texttt{C(+16)} \\ 2 \texttt{BC(+16)}  \\8  \texttt{ABC(+16)} \\
+		3  \texttt{C}      \\ 1 \texttt{B(+16)C}  \\4  \texttt{AB(+16)C} \\
+		9  \texttt{C}      \\ 3 \texttt{BC}       \\12 \texttt{A(+16)BC} \\
+		};
+	\node[rblock, right=.2cm of 2nd](3rd){
+		\bf{y-ions}\\
+		\( \displaystyle\frac{\texttt{(C)(+16)}}{\texttt{(C)(+16)}+\texttt{C}}    = \frac{6}     {6+3+9}  = \frac{1}{3} \) \\ \vspace{4pt} \\
+		\( \displaystyle\frac{\texttt{(BC)(+16)}}{\texttt{(BC)(+16)}+\texttt{BC}} = \frac{2+1}   {2+1+3}  = \frac{1}{2} \) \\ \vspace{4pt} \\
+		\( \displaystyle\frac{\texttt{(ABC)(+16)}}{\texttt{(ABC)(+16)}+\texttt{ABC}} = \frac{8+4+12}{8+4+12} \equiv 1 \)
+	};
+	\node[rblock, right=.2cm of 3rd](4th){
+		\bf{y-ions}\\
+		\( \displaystyle\frac{\texttt{C(+16)}}{\texttt{C(+16)}+\texttt{C}} = \frac{1}{3} - 0           = \frac{1}{3} \) \\ \vspace{4pt} \\
+		\( \displaystyle\frac{\texttt{B(+16)}}{\texttt{B(+16)}+\texttt{B}} = \frac{1}{2} - \frac{1}{3} = \frac{1}{6} \) \\ \vspace{4pt} \\
+		\( \displaystyle\frac{\texttt{A(+16)}}{\texttt{A(+16)}+\texttt{A}} = 1           - \frac{1}{2} = \frac{1}{2} \) 
+	};
+	\path[draw,->, thick] (1st) edge (cid)  (cid) edge (2nd)  (2nd) edge (3rd) (3rd) edge (4th);
+\end{tikzpicture}
+\noindent
+\footnotesize{
+\noindent
+\begin{align*}
+	    \displaystyle\Pr[\mathtt{C_{}} \text{ is } \gls{mono-oxidized}] = \frac{1}{4} \cdot \frac{1}{3} %= \frac{1}{12}  
+	&&  \displaystyle\Pr[\mathtt{B_{}} \text{ is } \gls{mono-oxidized}] = \frac{1}{4} \cdot \frac{1}{6} %= \frac{1}{24}   
+	&&  \displaystyle\Pr[\mathtt{A_{}} \text{ is } \gls{mono-oxidized}] = \frac{1}{4} \cdot \frac{1}{2} %= \frac{1}{8}   
+\end{align*}
+\noindent
+Our algorithm quantitates \gls{ox1} at subpeptide level on a dataset produced by targeted \gls{LC-MS/MS}. 
+	This quantitation can improve the spatial resolution of \gls{RP-MS}.
+  This improvement improves the spatial resolution at which protein folding is studied.
+}	
+\endgroup
+\end{framed}
+\caption[
+	The graphical abstract of \cref{chap:oxlvl}.]{
+	The graphical abstract of \cref{chap:oxlvl} (hypothetical data used as example).
+	\label{fig:OX:motivation:graphical-abstract}}
+\end{figure}
+\clearpage
+
+%This chapter present our work on the quantitation of oxidation at subpeptide level.
+\Cref{sec:subpeptide-oxidation:motivation} presents our motivation.
+Our motivation is to improve the spatial resolution of \gls{RP-MS},
+	because this improvement improves the spatial resolution at which protein folding is studied.
+\Cref{sec:oxlvl:relatedworks} presents related works in the literature. 
+\Cref{sec:oxlvl:dataset} presents an \gls{MS/MS} dataset produced by a variant of \gls{RP-MS}.
+The \gls{MS/MS} dataset is mainly produced by six runs of targeted \gls{MS/MS} respectively analyzing six \gls{mono-oxidized} tryptic peptides. 
+\Cref{sec:oxlvl:methods} presents our algorithm.
+Our algorithm takes as input the data produced by a run of targeted \gls{MS/MS},
+	and our algorithm quantitates the oxidation on a subpeptide of the peptide analyzed by this run.
+\Cref{sec:oxlvl:results} presents the results of running our algorithm on the \gls{MS/MS} dataset. 
+These results are collectively consistent with some previously published oxidation rates.
+\Cref{sec:oxlvl:discussion} presents the discussion about our work.
+	
+\section{Motivation}
+\label{sec:subpeptide-oxidation:motivation}
+
+%Let proteolyzed peptides be the products of the proteolysis of a polypeptide.
+The proteolysis of a polypeptide produces some proteolyzed peptides.	
+Quantitating oxidation at peptide level    means quantitating the extent of oxidation on a proteolyzed peptide.
+Quantitating oxidation at subpeptide level means quantitating the extent of oxidation on a short peptide that is part of a proteolyzed peptide.
+Quantitating oxidation at residue level    means quantitating the extent of oxidation on one single residue of a proteolyzed peptide. 
+		
+We proposed an algorithm for quantitating, at subpeptide level, the \gls{ox1} produced by \gls{FPOP} and detected by targeted \gls{LC-MS/MS}.
+%Our algorithm empirically works on a dataset that is generated by an \gls{RP-MS} experiment with six runs of targeted product-ion scans.
+Our algorithm can improve the spatial resolution of \gls{RP-MS}.
+This improvement can improve the spatial resolution at which \gls{RP-MS} is used for studying protein folding.
+Moreover, our work is an important step towards quantitation of oxidation at residue level.
+
+\section{Related works}
+\label{sec:oxlvl:relatedworks}
+
+In \citeyear{maleknia1999millisecond}, \citet{maleknia1999millisecond} used Synchrotron X-rays to generate \gls{OH-rad} within 10 milliseconds. 
+In \citeyear{maleknia1999millisecond}, \citet{maleknia1999electrospray} used electrical discharge to oxidize proteins that are introduced into a mass spectrometer.
+Since then, many analytical methods for generating \gls{OH-rad} have been developed.
+Unfortunately, these methods suffer from the uncertainty that \gls{OH-rad} can partially denature an investigated protein.
+Moreover, these methods cannot efficiently control the extent of \gls{OH-rad}-mediated modification to an investigated protein.
+
+In \citeyear{hambly2005laser}, \citet{hambly2005laser} developed \gls{FPOP}.
+\Gls{FPOP} reduces the chemical effect of \gls{OH-rad} to less than 1 microsecond.
+Moreover, \gls{FPOP} limits the extent of \gls{OH-rad}-mediated modifications by using a radical scavenger, such as glutamine.
+Since then, \gls{FPOP} has been extensively used for \gls{RP-MS}.
+Unfortunately, \gls{RP-MS} has only been used to quantitate oxidation at peptide level.
+Different amino acids respectively have hugely different rates of reaction with \gls{OH-rad} (\cref{tab:AA-OH-reaction-rate}). %TODO: clarity?
+Thus, if the rate of such reaction of an amino-acid residue is negligible, then this residue is often assumed to be always unoxidized.
+
+Some methods were proposed to quantitate oxidation at subpeptide level.
+In \citeyear{chen2012fast},
+	\citet{chen2012fast} used \gls{MS2} spectra to map some peaks in \gls{MS1} spectra to some oxidized residues, 
+	then \citet{chen2012fast} used this mapping to quantitate the oxidation on each of some selected residues of Barstar. 
+Unfortunately, this mapping requires considerable human effort, and this quantitation requires a high-resolution mass spectrometer.
+Moreover, this mapping is often compromised by the overlap between the respective \glspl{RT} of differently oxidized isobaric peptides.
+In \citeyear{li2013improved}, \citet{li2013improved} used c-ion intensities to quantitate, with some errors, oxidation at subpeptide level.
+Unfortunately, \citet{li2013improved} did not discuss about the correction of these errors and investigated only two real peptides.
+
+\section{The \texorpdfstring{\Gls{MS/MS}}{MS/MS} dataset}
+\label{DS:MS2}
+\label{sec:oxlvl:dataset}
+
+\begin{figure}
+\def \noCommand #1{#1}
+\centering{\texttt{
+	\begin{tabular}{l}
+		\noCommand{>\texttt{1WLA:A}|PDBID|CHAIN|SEQUENCE} \\
+		\underline{GLSDGEWQQVLNVWGK} %$^\texttt{1814.90}$ 
+		\underline{VEADIAGHGQEVLIR} %$^\texttt{1605.85}$  
+		\underline{LFTGHPETLEK} %$^\texttt{1270.66}$  
+		\noCommand{FDK} \\
+		\noCommand{FKHLK} 
+		\underline{TEAEMK} %$^\texttt{707.32}$   
+		\noCommand{ASEDLK} 
+		\noCommand{K} %\\
+		\noCommand{HGTVVLTALGGILK} 
+		\noCommand{K} 
+		\noCommand{K} 
+		\noCommand{GHHEAELKPLAQSHATKHK} \\
+		\noCommand{IPIKYLEFISDAIIHVLHSK}  
+		\underline{HPGDFGADAQGAMTK} %$^\texttt{1501.66}$  
+		\noCommand{ALELFR} 
+		\noCommand{NDIAAK}
+		\noCommand{YK} 
+		\underline{ELGFQG} %$^\texttt{649.31}$ 
+	\end{tabular}
+}}
+\caption[
+	The FASTA sequence of apomyoglobin (\gls{PDB} \texttt{1WLA:A}).]{
+	The FASTA sequence of apomyoglobin (\gls{PDB} \texttt{1WLA:A}).
+	Each word denotes a tryptic peptide.
+	All tryptic peptides are analyzed in one run of \gls{MS1}.{}
+	However, 
+	only the six underlined tryptic peptides are analyzed in six runs of targeted \gls{MS2} respectively. 
+ 	\label{FASTA_PDB_1WLA}}
+\end{figure}
+
+The \gls{MS/MS} dataset is produced by an \gls{RP-MS} experiment.
+This experiment is conducted by Siavash Vahidi and Professor Lars Konermann.
+This experiment is similar to the other experiment described in \cite{vahidi2012mapping}.
+This experiment proceeded as follows.
+First, a solution with pH=2 denatured apomyoglobin (\gls{PDB} \texttt{1WLA:A}).
+Next, \gls{FPOP} oxidized most of this denatured apomyoglobin, although most tryptic peptides of apomyoglobin remain unoxidized.
+Then, trypsin cleaved oxidized apomyoglobin into tryptic peptides.
+Each of these tryptic peptides was either oxidized or unoxidized.
+Afterwards, one run of \gls{LC-MS} analyzed these tryptic peptides to produce a sequence of \gls{MS1} spectra.
+Finally, six runs of targeted \gls{LC-MS/MS} respectively analyzed six \gls{mono-oxidized} tryptic peptides among these peptides.
+Each of these six runs produced a sequence of \gls{MS2} spectra.
+\Cref{FASTA_PDB_1WLA} shows the sequence of apomyoglobin and the six \gls{mono-oxidized} tryptic peptides.
+The \gls{FPOP} presumably used a finely tuned quantity of radical scavengers to control oxidation extents.
+Thus, the sequence of \gls{MS1} spectra shows that a tryptic peptide of apomyoglobin is rarely oxidized more than once.
+Thus, any tryptic peptide of apomyoglobin is assumed to be either unoxidized or \gls{mono-oxidized} after the \gls{FPOP}.
+\begin{table}
+%	\def \textst #1{{\texttt{#1}}}
+%	\def \txtfrac #1#2{\(\genfrac{}{}{0pt}{}{\displaystyle\text{#1}}{\displaystyle\text{#2}}\)}
+%	\def \ss #1#2{\(\substack{\displaystyle\text{#1}\\\displaystyle\text{#2}}\)}
+%	\def \sss #1#2#3{\(\substack{\displaystyle\text{#1}\\\displaystyle\text{#2}\\\displaystyle\text{#3}}\)}
+%	\def \M #1{\textnormal{M}}
+  \centering\small
+  \begin{tabular}{ l c c c c c c c c c c}
+  \toprule
+  Sequence of both  
+                                &\multicolumn{4}{l}{For precursor ions of \gls{typeof:ox=1:pep}}  
+                                &\multicolumn{4}{l}{For precursor ions of \gls{typeof:ox=0:pep}}  \\      
+  \gls{typeof:ox=1:pep} and \gls{typeof:ox=0:pep}    
+                                & \gls{RT} in min    & z         & \gls{m/z}    & \gls{AUCXIC}  
+                                & \gls{RT} in min    & z         & \gls{m/z}    & \gls{AUCXIC} 
+                                \\\midrule
+  \texttt{GLSDGEWQQVLNVWGK}     & [49.0, 62.0]   & 3         & 611.30 & 12377 & [59.0, 64.0] & 3 & 605.97 &  17390 \\
+  \texttt{VEADIAGHGQEVLIR}      & [28.3, 40.3]   & 3         & 541.62 & 29232 & [34.0, 83.0] & 3 & 536.29 & 249193 \\
+  \texttt{LFTGHPETLEK}          & [22.5, 34.0]   & 3         & 429.89 & 24164 & [28.5, 37.0] & 3 & 424.56 & 123514 \\
+  \texttt{TEAEMK}               &  [0.0, 7.0]    & 2         & 362.66 &  4545 & [10.0, 14.8] & 2 & 354.67 &  14512 \\
+  \texttt{HPGDFGADAQGAMTK}      & [19.5, 27.0]   & 3         & 506.89 & 20141 & [26.7, 33.3] & 3 & 501.56 &   6005 \\
+  \texttt{ELGFQG}               & [21.0, 34.0]   & 1         & 666.31 &  9365 & [31.9, 37.9] & 1 & 650.32 &  81906 \\
+  \bottomrule
+  \end{tabular}
+  \caption[A summary of the \gls{MS1} spectra in the \gls{MS/MS} dataset.]{
+           A summary of the \gls{MS1} spectra in the \gls{MS/MS} dataset.
+  The \gls{m/z} window that is used for constructing \glspl{XIC} and thus \glspl{AUCXIC} is the \gls{m/z} of the precursor ion \(\pm 0.1\si{\dalton}\).
+  	The \gls{AUCXIC} of all multiply-oxidized (e.g. di-oxidized, tri-oxidized) peptides is at most 10\% of the \gls{AUCXIC} of the corresponding \gls{mono-oxidized} peptide (data not shown).
+	\Gls{typeof:ox=0:pep} is a chemical species of unoxidized peptides.{}
+  \Gls{typeof:ox=1:pep} is a chemical superspecies of \gls{mono-oxidized} peptides that are chemically identical up to \gls{ox1}-induced structural isomerism.
+  \label{tab:oxlvl:6-tryptic-peptides}
+  }
+\end{table}
+We manually verified, by visual inspection, that the mass spectrometer that produced the \gls{MS/MS} dataset has a mass accuracy of \(\pm0.1\si{\dalton}\).
+Peptides having the same sequence respectively generate precursor ions having the same charge state (\cref{tab:oxlvl:6-tryptic-peptides}). 
+
+In this section,
+	\gls{typeof:ox=0:pep} \glsentryuseri{typeof:ox=0:pep},
+	and \gls{typeof:ox=1:pep} \glsentryuseri{typeof:ox=1:pep}.
+\Gls{AUCXIC} \glsdesc*{AUCXIC} % lower-case to denote function
+
+\section{Methods}
+%\label{sec:OX:methods}
+\label{sec:oxlvl:methods}
+
+In brief, our algorithm proceeds as follows.
+First, oxidation at peptide level is quantitated by using \gls{MS1} spectra.
+Next, oxidation at subpeptide level is quantitated by using \gls{MS2} spectra.
+Then, random errors in the quantitation of oxidation at subpeptide level are estimated by our empirical formula presented in \cref{chap:error},
+Afterwards, every such quantitated extent of oxidation is ensured to be a positive number.
+Finally, by using both quantitation of oxidation at subpeptide level and quantitation of oxidation at peptide level,
+	our algorithm quantitates oxidation at subpeptide level for multiple peptides in a protein.
+The input mass spectra had first been preprocessed by PEAKS 6 \cite{ma2003peaks} before being used by our algorithm.				
+
+Every y-ion is indexed from C-terminus to N-terminus, but every residue is indexed from N-terminus to C-terminus (\cref{MS2_pept_id}).
+Thus, an index such as \(i\) is a y-ion index if used for indexing a y-ion and a residue index if used for indexing a residue.
+
+\begin{figure}
+\includegraphics[width=\textwidth]{imgbin/oxidPeakArea.pdf}
+\caption[
+	A schematic of \gls{MS1}-based quantitation of oxidation at peptide level.]{
+	A schematic of \gls{MS1}-based quantitation of oxidation at peptide level.
+	A hypothetical run is used as example.
+	The \gls{mono-oxidized} forms can be chemically different and thus can be eluted at different \gls{RT} ranges respectively.
+	\label{fig:OX:methods:quntitationMS1}
+}
+\end{figure}	
+Before quantitating oxidation at subpeptide level, we have to quantitate oxidation at peptide level.
+In \gls{MS1} spectra, 
+	the fraction of the \gls{AUCXIC} of \gls{mono-oxidized} peptide over the \gls{AUCXIC} of both \gls{mono-oxidized} or unoxidized peptide denotes the relative frequency that this peptide is oxidized after \gls{FPOP}.
+Thus, this \gls{AUCXIC} fraction is used for quantitating oxidation at peptide level.
+\Cref{fig:OX:methods:quntitationMS1} shows how \gls{MS1} enables the quantitation of oxidation at peptide level.
+	
+In the \gls{LC-MS/MS} experiment, the instrument is programmed to target a \gls{mono-oxidized} peptide \gls{typeof:ox=1:pep}. 
+When \gls{typeof:ox=1:pep} is eluted from \gls{LC} column, \gls{typeof:ox=1:pep} is continuously acquired by the mass spectrometer and fragmented. 
+The product ions of \gls{typeof:ox=1:pep} are detected to produce an \gls{MS2} spectrum. 
+As a result, a sequence of \gls{MS2} spectra are produced. 
+For any index \(i\), we use \(\texttt{y}_i\oxZero\) to denote the unoxidized \(\texttt{y}_i\) ion and \(\texttt{y}_i'\) to denote the \gls{mono-oxidized} \(\texttt{y}_i\) ion. 
+The \gls{AUCXIC} of \(\texttt{y}_i\oxZero\) or \(\texttt{y}_i'\) is the total intensities of the corresponding ion in the sequence of \gls{MS2} spectra, and is denoted by \(y_i\oxZero\) or \(y_i'\), respectively. 
+Thus, \(\phi_i\), the fraction of \(\texttt{y}_i\) ions that are \gls{mono-oxidized}, can be estimated by the following formula.
+\(\displaystyle \phi_i \getsvalueof \frac{y_i'}{y_i+y_i'}\).	
+	
+Because of the stochastic nature of every run of mass spectrometry and of the algorithmic artifact in the calculation of \gls{AUCXIC},
+	random error exists in the observation of \(\phi_i\).
+One run of mass spectrometry cannot empirically assess any random error.
+Fortunately, \cref{chap:error} provides an empirical formula that estimates the following: 
+	the random error in a \gls{AUCXIC} fraction given that this fraction is measured in only one run of mass spectrometry.
+Thus, we applied our empirical formula to \(\phi_i\), because \(\phi_i\) is a \gls{AUCXIC} fraction.
+The substitution of \(\phi_i\) into our empirical formula implies that
+\begin{align}
+\displaystyle\Phi_i \isappdistas \rnorm\left({\E}[\Phi_i], \frac{y_i{\oxZero} \cdot y_i'}{(y_i{\oxZero} + y_i')^{3}}\right),
+\label{eq:OX:methods:empirical_formula}
+\end{align}
+where \(\phi_i\) is one realization, or equivalently one observed value, of the hidden random variable \(\Phi_i\).
+\(\Phi_i\) denotes the hidden stochastic process that generated \(\phi_i\) with random error.
+\(\phi_i\) is trivially an estimate of \({\E}[\Phi_i]\).
+Thus, let \({\singlehat\E}[\Phi_i]\) be defined as \(\phi_i\).
+	
+
+The quantity of every y-ion should be proportional to the quantity of the peptides that can generate this y-ion.
+Thus, \( y_i'\) should be proportional to the quantity of \gls{mono-oxidized} peptides whose \gls{ox1} site is before or at the y-ion index \(i\). 
+Similarly, \( y_i{\oxZero}\) should be proportional to the quantity of \gls{mono-oxidized} peptides whose \gls{ox1} site is after the y-ion index \(i\).
+Thus, by definition, \({\singlehat\E}[\Phi_i]\) denotes the relative frequency that the oxidation site on \(\gls{typeof:ox=1:pep}\) is before or at the y-ion index \(i\).
+Thus, \(\displaystyle {\singlehat\E}[\Phi_i] - {\singlehat\E}[\Phi_{i-1}]\) denotes the relative frequency that the oxidation site on \(\gls{typeof:ox=1:pep}\) is at the y-ion index \(i\).
+
+Relative frequency cannot be negative.
+Thus, for every applicable \(i\), \({\singlehat\E}[\Phi_i] - {\singlehat\E}[\Phi_{i-1}]\) should be positive.
+Equivalently, \(\displaystyle {\singlehat\E}[\Phi_i]\) should monotonically increase as a function of \(i\).
+For example, this monotonicity almost holds for \texttt{(VEADIAGHGQEVLIR)(+16)} (\cref{fig:OX:dataset:oxid_vs_unox_for_VEADIAGHGQEVLIR}).
+\begin{figure}
+\includegraphics[width=\textwidth]{img/VEADIAGHGQEVLIR_34_68_ox0.pdf}
+\includegraphics[width=\textwidth]{img/VEADIAGHGQEVLIR_34_68_ox1.pdf}
+\caption[
+	A mixture \gls{MS2} spectrum of \texttt{VEADIAGHGQEVLIR} in the \gls{MS/MS} dataset.]{
+	A mixture \gls{MS2} spectrum of \texttt{VEADIAGHGQEVLIR} in the \gls{MS/MS} dataset.
+	The top annotation shows \(\texttt{y}_i\) and the bottom annotation shows \(\texttt{y}_i'\).
+	\(i\) denotes an y-ion index. 
+	\(\texttt{y}\) denotes the unoxidized form of a y-ion. 
+	\(\texttt{y}'\) denotes the \gls{mono-oxidized} forms of a y-ion.
+	Both annotations annotate the same spectrum.
+	\label{fig:OX:dataset:oxid_vs_unox_for_VEADIAGHGQEVLIR}
+}
+\end{figure}	
+This monotonicity is desired but not observed for some pairs of y-ion indexes.
+This monotonicity can be invalidated by multiple causes.
+However, the most important cause among these causes seems to be the stochastic nature of \(\Phi_i\) that generated \(\phi_i\).
+This stochastic nature causes random error in the observation of \(\phi_i\).
+An estimation of this random error is provided by \cref{eq:OX:methods:empirical_formula}.
+Then, by considering this random error, \cref{alg:OX:methods:plot:generate_subpeptide_level_oxidation} of \cref{alg_get_2plots} enforces this monotonicity.		
+
+The z-score of an observation is defined as follows: 
+	the deviation of this observation from the mean of this observation, divided by the standard deviation of this observation.
+%Z-score is defined as observed deviation from mean divided by standard deviation.
+The standard deviation of \(\Phi_i\) can be estimated by \cref{eq:OX:methods:empirical_formula}.
+Thus, \cref{eq:OX:methods:empirical_formula} can normalize observed deviations respectively to z-scores.
+Thus, the sum of the respective squares of these z-scores monotonically decreases as a function of the likelihood of observing these z-scores.
+This monotonic decrease leads to isotonic regression.
+Thus, the exact formulation of our isotonic regression is as follows given the length \(n\) of the sequence of a peptide:
+\begin{align}   
+&\text{Minimize }  &&
+		\sum_{i=1}^{n-1} \left(\frac{{\doublehat\E}[\Phi_i] - {\singlehat\E}(\Phi_i)}{\sqrt{{\singlehat\VAR}(\Phi_i)}}\right)^2 \\
+&\text{such that } &&
+		\forall i\in\{2,3,\dots,n-1\}: \left(0 \le {\doublehat\E}[\Phi_{i-1}] \le {\doublehat\E}[\Phi_{i}] \le 1\right) \\
+&\text{where }     &&
+		\displaystyle{\singlehat\E}(\Phi_i) = \phi_i = \frac{y_i'}{y_i\oxZero + y_i{'}} 
+		\text{~~~~and~~~~} \displaystyle{\singlehat\VAR}(\Phi_i) = \frac{y_i{\oxZero} + y_i'}{(y_i{\oxZero} \cdot y_i')^{3}}.
+\end{align}  		
+Our isotonic regression is solved by using the linear-time pool-adjacent-violators algorithm (PAVA) implemented by \citet{turner2013package}.
+
+The solution to our isotonic regression transforms each \({\singlehat\E}[\Phi_i]\) into its corresponding	\({\doublehat\E}[\Phi_i]\).
+By definition of isotonic regression,
+	\({\doublehat\E}[\Phi_{i}] - {\doublehat\E}[\Phi_{i-1}] \ge 0\) for all valid y-ion indexes \(i\) and \(i+1\).
+Thus, every \({\doublehat\E}[\Phi_{i}] - {\doublehat\E}[\Phi_{i-1}]\) can denote a valid relative frequency.
+	%and a valid quantity of molecular entities.
+Thus, \({\doublehat\E}[\Phi_{i}] - {\doublehat\E}[\Phi_{i-1}]\) denotes the relative frequency of the following event: 
+	the residue located at the y-ion index \(i\) of a peptide is \gls{mono-oxidized} given that this peptide as a whole is \gls{mono-oxidized}.
+The random error in each \({\singlehat\E}[\Phi_{i}]\) is estimated to be approximately \(\sqrt{{\singlehat\VAR}[\Phi_i]}\),
+	and \({\singlehat\E}[\Phi_{i}] \approx {\doublehat\E}[\Phi_{i}]\).
+Thus, the random error in \({\doublehat\E}[\Phi_{i}]\) is also estimated to be approximately \(\sqrt{{\singlehat\VAR}[\Phi_i]}\).
+Thus, if \(\Phi_i\) and \(\Phi_{i-1}\) are independent,
+	then the random error in \({\singlehat\E}[\Phi_{i} - \Phi_{i-1}]\) is estimated to be approximately \(\sqrt{{\singlehat\VAR}[\Phi_{i}] + {\singlehat\VAR}[\Phi_{i-1}]}\).{}
+Thus,
+	the random error in the observed \({\doublehat\E}[\Phi_{i}] - {\doublehat\E}[\Phi_{i-1}]\) is estimated to be approximately
+		\(\sqrt{{\singlehat\VAR}[\Phi_{i}] + {\singlehat\VAR}[\Phi_{i-1}]}\).
+
+We can quantitate both the \gls{ox1} on each peptide and the \gls{ox1} on each residue of a \gls{mono-oxidized} peptide.
+Thus, we can quantitate the \gls{ox1} on each residue.
+\Cref{alg:OX:methods:plot:generate_subpeptide_level_oxidation} of \cref{alg_get_2plots} 
+		calculates \gls{ox1} at residue level by using this quantitation. 
+%\gls{ox1} at peptide level and \gls{ox1} at residue level given \gls{ox1} at peptide level.
+Afterwards, the relative frequency that each residue is \gls{mono-oxidized} is estimated.
+Finally, the random error in this relative frequency is estimated too. 
+
+Some errors exist in our \gls{MS1}-based quantitation of oxidation at peptide level.
+However, a peptide can be divided into multiple subpeptides.
+Thus, the extent of oxidation on each of these subpeptide is only a small difference between two \gls{AUCXIC} fractions.
+Thus, quantitation of oxidation at subpeptide level has more error than quantitation of oxidation at peptide level.
+Moreover, the intensity of a product ion is usually much lower than the intensity of the precursor ion that formed this product ion.
+Thus, \gls{MS2}-based quantitation of oxidation has more error than \gls{MS1}-based quantitation of oxidation.
+We used both such \gls{MS2}-based quantitation at subpeptide level and such \gls{MS1}-based quantitation at peptide level.
+Therefore, we ignored error in such \gls{MS1}-based quantitation because such \gls{MS2}-based quantitation has much more error.
+
+As mentioned in \cref{sec:MS:prep}, preprocessing of mass spectra is important.
+Examples of such preprocessing are baseline removal, centroiding, deconvolution, and deisotoping.
+Thus,	before applying any aforementioned procedure, we performed the following.
+First, we manually determined the charge state of every applicable precursor. 
+Then, we performed a moving average with a window of \(20\si{\second}\) along \gls{RT} for the \gls{MS2} spectra in the \gls{MS/MS} dataset.
+Finally, we let the software PEAKS 6 \cite{ma2003peaks} preprocess these \gls{MS2} spectra.	
+
+\begin{algorithm}
+	\def \Moxid {\ensuremath{P'}}
+	\def \Munox {\ensuremath{P{\oxZero}}}
+		\def \Moxid {\gls{typeof:ox=1:pep}}
+		\def \Munox {\gls{typeof:ox=0:pep}}
+	\def \DIAMS {\ensuremath{r''}}
+	\def \PREMS {\ensuremath{r'}}
+\caption{
+	quantitate-oxidation-at-subpeptide-level\((\Munox, \Moxid, r', r'')\) 
+	\label{alg_get_2plots}}
+\begin{algorithmic}[1]	
+\Require{
+	\(\Munox\) is a chemical species of unoxidized peptides.
+	\(\Moxid\) is a chemical superspecies of \gls{mono-oxidized} peptides.
+	Both \(\Munox\) and \(\Moxid\) have the same sequence and \(\Moxid\) is heavier than \(\Munox\) by approximately \(15.99\si{\dalton}\).
+	A sample contains both \(\Munox\) and \(\Moxid\). 
+	A run of \gls{LC-MS} surveyed this entire sample to produce a sequence \(\PREMS\) of \gls{MS1} spectra.
+	A run of \gls{LC-MS/MS} targeted only \(\Moxid\) in this sample to produce a sequence \(\DIAMS{}\) of \gls{MS2} spectra.
+}
+\Ensure{
+		\Cref{plot_yratio_vs_i} and
+		\cref{plot_ox_vs_pepidx}.
+	}
+	\State \(\displaystyle {\singlehat\Pr}[\Munox\to\Moxid]\isdefinedas\frac{\gls{AUCXIC}(\Moxid, r')}{\gls{AUCXIC}(\Moxid, r') + \gls{AUCXIC}(\Munox,  r')}\) 
+	\newline\Comment{quantitate \gls{ox1} at peptide level by using information in \gls{MS1}}
+	\State Smooth \DIAMS{} by a moving average of 20 \gls{MS2} spectra that are consecutive along \gls{RT}.  \newline
+	\Comment{Numbers other than 20 yield similar results.}
+	\State Preprocess smoothed \DIAMS{} using PEAKS 6 \cite{ma2003peaks}.
+	\State \(n \isdefinedas\) the length of the sequence of \(\Munox\) or equivalently of \(\Moxid\).
+	\For{\(i\in \{1,2,\dots,n{-}1\}\)}
+		\State \( y_i{\oxZero} \isdefinedas \gls{AUCXIC}(\texttt{y}_i{\oxZero}(\Moxid), r'') + i \)  
+		\State \( y_i' \isdefinedas \gls{AUCXIC}(\texttt{y}_i'(\Moxid), r'') + (n-i) \)  
+		\State \(\displaystyle ({\singlehat\E}[\Phi_i], {\singlehat\VAR}[\Phi_i]) 
+				\isdefinedas \left(\frac{y_i'}{y_i{\oxZero}+y_i'},
+				                  \frac{{y_i{\oxZero}}\cdot y_i'}{(y_i{\oxZero}+y_i')^3}\right)\) 
+				\hfill\Comment{\Cref{eq:NM:derivation:simplificationresult}}
+	\EndFor
+	\State Plot \({\singlehat\E}[\Phi_i] \pm \sqrt{{\singlehat\VAR}[\Phi_i]}\) as a function of \(i\),
+			and this plot is in \cref{plot_yratio_vs_i}. 
+	\State \(\displaystyle
+	({\doublehat\E}[\Phi_1], {\doublehat\E}[\Phi_2], \dots, {\doublehat\E}[\Phi_{n-1}])  \getsvalueof 
+	\argmin_{ \substack{ (\phi_1, \phi_2, \dots, \phi_{n-1}) \in [0,1]^{n-1} \\ 
+	                     \text{ such that } \phi_1 \le \phi_2 \le \dots \le \phi_{n-1} }}
+	\left(
+		\sum_{i=1}^{n-1} \left(\frac{\phi_i - {\singlehat\E}(\Phi_i)}{\sqrt{{\singlehat\VAR}(\Phi_i)}}\right)^2 
+	\right) \)
+	\newline
+	\Comment{Perform isotonic regression of \({\singlehat\E}[\Phi_i]\) versus \(i\) where each \({\singlehat\E}[\Phi_i]\) has weight \(({\singlehat\VAR}[\Phi_i])^{-1}\)}\newline
+	\Comment{The PAVA implemented by \citet{turner2013package} is used for solving our isotonic regression.}
+	\State \((({\singlehat\E}[\Phi_0], {\singlehat\VAR}[\Phi_0]), ({\singlehat\E}[\Phi_n], {\singlehat\VAR}[\Phi_n])) 
+			\getsvalueof ((0, 0), (1, 0)) \) \hfill \Comment{Oxidation before \(0\) and \(n\)}  
+	\For{\(i \in \{1,2,\dots, n\}\)}
+		\State \(\displaystyle 
+				\left(
+					{\doublehat\E}[\Phi_i - \Phi_{i-1}],
+					{\doublehat\VAR}[\Phi_i - \Phi_{i-1}]
+				\right) 
+				\isdefinedas 
+				\left(
+					{\doublehat\E}[\Phi_i] - {\doublehat\E}[\Phi_{i-1}], 
+					{\singlehat\VAR}[\Phi_{i}] + {\singlehat\VAR}[\Phi_{i-1}]
+					%\sum_{j=i-1}^{i} \left(({\doublehat\E}[\Phi_j] - {\singlehat\E}[\Phi_j])^2 + {\singlehat\VAR}[\Phi_{j}]\right)
+				\right)
+			\)
+			\State \({\singlehat\Pr}[\Munox_{n+1-i}\to\Moxid_{n+1-i}] \isappdistas 
+		    {\singlehat\Pr}[\Munox\to\Moxid] \cdot \rnorm\left(
+								{\doublehat\E}[\Phi_i - \Phi_{i-1}],
+								{\doublehat\VAR}[\Phi_i - \Phi_{i-1}]
+							\right)\)
+				\label{alg:OX:methods:plot:generate_subpeptide_level_oxidation}
+	\EndFor
+	\State Plot \({\singlehat\Pr}[\Munox_{k}\to\Moxid_{k}]\) as a function of the residue at index \(k\) of \(\Munox{}\) or equivalently of \(\Moxid{}\), 
+			{and this plot is in \cref{plot_ox_vs_pepidx}}. 
+			
+\end{algorithmic}
+\end{algorithm}
+
+
+\section{Results on the \texorpdfstring{\gls{MS/MS}}{MS/MS} dataset}
+\label{sec:oxlvl:results}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+ ticks=none,enlargelimits=false,
+		xlabel near ticks, ylabel near ticks, 
+		width=\textwidth,height=\textwidth,
+		ylabel={\({\singlehat\E}(\Phi_i) \pm {\singlehat\VAR}(\Phi_i)\) fitted with isotonic regression},
+		xlabel={y-ion index (\(i\))}]
+  \addplot graphics[xmin=0,xmax=100,ymin=0,ymax=100] {plt/1_pep_ratio_all.pdf};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\caption[ % $...$ instead of \(...\) should be used here
+	The estimated relative frequency that $\texttt{y}_i$ is \gls{mono-oxidized} as a function of $i$.]{
+	The estimated relative frequency that $\texttt{y}_i$ is \gls{mono-oxidized} as a function of $i$.
+	\Cref{alg_get_2plots} generated this plot.
+	\label{plot_yratio_vs_i}}
+\end{figure}
+
+\Cref{alg_get_2plots} generated \cref{plot_yratio_vs_i} from the \gls{MS/MS} dataset which is described in \cref{DS:MS2}. 
+As mentioned in \cref{sec:oxlvl:methods}, the expected pattern is that \(\Phi_i\) does not substantially decrease as the y-ion index \(i\) increases.
+\Cref{plot_yratio_vs_i} shows the following.
+The \gls{mono-oxidized} forms of \texttt{GLSDGEWQQVLNVWGK} show the expected pattern at all y-ion indexes without any exception. 
+The \gls{mono-oxidized} forms of \texttt{VEADIAGHGQEVLIR}  show the expected pattern at all y-ion indexes except from \(i=9\) to \(i=10\).
+The \gls{mono-oxidized} forms of \texttt{LFTGHPETLEK}      show the expected pattern at all y-ion indexes except from \(i=5\) to \(i=6\) and from \(i=8\) to \(i=9\).
+The \gls{mono-oxidized} forms of \texttt{TEAEMK}           show the expected pattern at all y-ion indexes except from \(i=2\) to \(i=3\) and from \(i=4\) to \(i=5\).
+The \gls{mono-oxidized} forms of \texttt{HPGDFGADAQGAMTK}  show the expected pattern at all y-ion indexes except from \(i=5\) to \(i=6\).
+The \gls{mono-oxidized} forms of \texttt{ELGFQG}           show the expected pattern at all y-ion indexes without any exception.
+
+The native reactivity of a free amino acid with \gls{OH-rad} is positively correlated with the percentage of \gls{ox1} on this residue. 
+%detected as mass shift of \(+15.99\si{\dalton}\) on this residue.
+%This correlation should be strongly linear.
+Unfortunately, this correlation is weak mainly because of the following.
+The reaction of a residue with \gls{OH-rad} can cause a mass shift other than \(+15.99\si{\dalton}\) to this residue (\cref{tab:AA-OH-reaction-rate}),
+	so this reaction does not always generate a \gls{mono-oxidized} peptide.
+In a protein, the reactivity of a residue may depend on adjacent residues.
+%Thus, such linear correlation is weak in practice.
+	
+The five residues that are top-listed in \cref{tab:AA-OH-reaction-rate} are most reactive with \gls{OH-rad}.
+Thus, these five residues are investigated in \cref{plot_yratio_vs_i}. 
+\begin{itemize}[nolistsep]
+\item 
+Cysteine   (\texttt{C}) is not in any of the six investigated peptides.
+\item 
+Tryptophan (\texttt{W}) appears twice in \texttt{GLSDGEWQQVLNVWGK}. 
+\texttt{GLSDGEWQQV} and \texttt{W} are the two subtryptic regions that have the majority of the oxidation on \texttt{GLSDGEWQQVLNVWGK}. 
+As expected, \texttt{GLSDGEWQQV} and \texttt{W} both contains \texttt{W}.
+However, \texttt{GLSDGEWQQV} is too long.
+Thus, the precise region of oxidation on \texttt{GLSDGEWQQV} cannot be determined.
+Thus, the extent of oxidation on \texttt{W} that is part of \texttt{GLSDGEWQQV} cannot be accurately quantitated.
+For \texttt{GLSDGEWQQVLNVWGK},
+		the increase in $\phi_i$ from $i=2$ to $i=3$ in \cref{plot_yratio_vs_i} is likely to be caused by the high extent of oxidation on \texttt{W}.
+Thus, even if \texttt{W} is in a peptide, other residues in this peptide cannot be excluded for quantitating oxidation.
+\item	
+Tyrosine   (\texttt{Y}) is not in any of the six investigated peptides.
+\item
+Methionine (\texttt{M}) appears once in \texttt{TEAEMK} and once in \texttt{HPGDFGADAQGAMTK}.
+\texttt{MK} is only a small part of \texttt{TEAEMK}, 
+	but \texttt{MK} has approximately 98\% of the oxidation on \texttt{TEAEMK}. 
+Similarly, \texttt{AM} is only a small part of \texttt{HPGDFGADAQGAMTK}, 
+	but \texttt{AM} has approximately 93\% of the oxidation on \texttt{HPGDFGADAQGAMTK}. 
+Moreover, \(\Phi_i - \Phi_{i-1} \approx 1\) whenever \(i\) corresponds to \texttt{M}.
+Thus, the oxidation on \texttt{M} is sufficiently high compared with other residues. 
+Thus, if \texttt{M} is in a peptide, then we usually can exclude other residues in this peptide for quantitating oxidation.	
+\item
+Phenylalanine (\texttt{F}) appears once in \texttt{LFTGHPETLEK}, once in \texttt{HPGDFGADAQGAMTK}, and once in \texttt{ELGFQG}.
+\texttt{FTGH} has approximately 80\% of the oxidation on \texttt{LFTGHPETLEK} and contains \texttt{F}.
+In \texttt{HPGDFGADAQGAMTK}, the oxidation in the subtryptic region containing \texttt{F} is characterized by huge statistical variation,
+Thus, we cannot accurately quantitate oxidation near \texttt{F} in \texttt{HPGDFGADAQGAMTK}.
+	\texttt{F} has approximately 25\% of the oxidation on \texttt{ELGFQG};
+For \texttt{LFTGHPETLEK}, an obvious increase in \(\Phi_i\) from \(i=9\) to \(i=10\) exists, and \(10\) is the y-ion index of \texttt{F}.
+However, for \texttt{ELGFQG}, no significant increase in \(\Phi_i\) from \(i=2\) to \(i=3\) exists, 
+		and \(3\) is the y-ion index of \texttt{F} in \texttt{ELGFQG}.
+Thus, even if \texttt{F} is in a peptide, we cannot exclude other residues in this peptide for quantitating oxidation.
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+ ticks=none,enlargelimits=false,
+		xlabel near ticks, ylabel near ticks, 
+		width=\textwidth,height=\textwidth,
+		ylabel={Estimate of the relative frequency that \textit{R} is mono-oxidized},
+		xlabel={Amino-acid residue \textit{R} in a subsequence of apomyoglobin (PDB \texttt{1WLA:A})}]
+  \addplot graphics[xmin=0,xmax=100,ymin=0,ymax=100] {plt/1_pep_rdiff_all.pdf};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\caption[
+	The relative frequency that a residue is \gls{mono-oxidized} as a function of the position of this residue.]{
+	The relative frequency that a residue is \gls{mono-oxidized} as a function of the position of this residue.
+	\Cref{alg_get_2plots} generated this plot. 
+	\label{plot_ox_vs_pepidx}} %not alg_alg_get_2plots
+\end{figure}
+
+\Cref{plot_ox_vs_pepidx} shows the relative frequency that a residue becomes \gls{mono-oxidized} as a function of its residue index.
+The respective second-order reaction rates of the 20 standard amino acids with \gls{OH-rad} are listed in \cref{tab:AA-OH-reaction-rate}.
+
+%The relative frequencies of becoming \gls{mono-oxidized} are estimated in \cref{plot_ox_vs_pepidx}.
+Let us suppose that the 20 standard amino-acid residues are sorted in descending order based on their such relative frequencies.
+Then, \texttt{M}, \texttt{W}, and \texttt{F} are likely to be ranked first, second, and third, respectively.
+Let us suppose that the 20 standard amino acids are sorted in descending order based on their such reaction rates.
+Then, \texttt{M}, \texttt{W}, and \texttt{F} are ranked second, forth, and fifth, respectively.	
+Thus, the observed high reactivity of these three residues with \gls{OH-rad} is consistent with their intrinsic high reactivity with \gls{OH-rad}.
+%TODO: grammar, use respective?
+
+%The respective second-order reaction rates of the 20 standard amino acids with \gls{OH-rad} are listed in \cref{tab:AA-OH-reaction-rate}.
+Let us suppose that the 20 standard amino acids are sorted in ascending order based on their such reaction rates.
+Then, \texttt{G}, \texttt{N}, \texttt{D}, \texttt{A}, and \texttt{E} are ranked first, second, third, forth, and fifth respectively.
+%The relative frequency of becoming \gls{mono-oxidized} are estimated in \cref{plot_ox_vs_pepidx}.
+%\Cref{plot_ox_vs_pepidx} shows the relative frequency that a residue becomes \gls{mono-oxidized} as a function of its residue index. 
+Let us suppose that the 20 standard amino-acid residues are sorted in ascending order based on their such relative frequencies.
+Then, \texttt{G}, \texttt{D}, \texttt{A}, and \texttt{E} are all unlikely to be \gls{mono-oxidized},
+	and \texttt{N} is discarded because no observation is made for \texttt{N}.
+Thus, the observed low reactivity of these residues with \gls{OH-rad} is consistent with their intrinsic low reactivity with \gls{OH-rad}.
+		
+We also attempted to use b-ions in addition of using y-ions.
+Unfortunately, the intensity of a typical b-ion is usually not sufficiently high for quantitating oxidation at subpeptide level.
+Thus, using b-ions yields worse results than using y-ions.
+
+\section{Discussion}
+\label{sec:oxlvl:discussion}
+	 
+Traditionally, \gls{RP-MS} uses \gls{MS2} spectra to only identify the residues which are oxidized.
+We used \gls{MS2} spectra produced from targeted \gls{LC-MS/MS} to attempt to quantitate \gls{ox1} on each residue.
+We were unable to quantitate the oxidation on every residue of a peptide.
+%However, we still improved the spatial resolution of \gls{RP-MS} to subpeptide level.
+%Let \gls{RP-MS/MS} be the \gls{RP-MS} with this improved spatial resolution.
+However, we presented an algorithm that can quantitate oxidation at subpeptide level
+Our algorithm is evaluated on the \gls{MS/MS} dataset produced by a specially designed \gls{RP-MS} experiment.
+In this \gls{RP-MS} experiment, ultraviolet laser irradiated denatured apomyoglobin during \gls{FPOP},
+	and then six runs of targeted \gls{MS/MS} respectively analyzed six tryptic peptides of apomyoglobin.	
+The evaluation shows the following expected pattern: 
+	the estimated oxidation extent before a y-ion index as a function of this y-ion index is monotonically increasing in general.
+Moreover, the estimated relative frequency that a residue is oxidized approximately matches the expected reactivity of this residue with \gls{OH-rad}
+		\cite{maleknia2014advances,gau2011advancement}.
+Thus, the relative frequency, which is estimated by our algorithm, is likely to be approximately correct.
+Thus, our algorithm is likely to be correct.
+
+Many aspects of the experiment design of \gls{RP-MS} need improvements.
+First, the evaluation of our algorithm did not consider the other experimental controls of \gls{FPOP}.
+For example, these controls include folded protein with irradiation by ultraviolet light and folded protein without such irradiation.
+Moreover, a run of targeted \gls{LC-MS/MS} only covers one peptide, so multiple such runs are required to cover one entire protein.
+Furthermore, the oxidation site on a peptide should affect the relative frequency that this peptide fragments at a given bond.
+Thus, almost every \gls{AUCXIC} fraction is a biased estimate of a relative frequency. 
+This bias causes systematic errors in quantitation of \gls{ox1} at subpeptide level. 
+
+In the future, 
+	we will first evaluate our algorithm with different experimental controls,
+	then make the specially designed \gls{RP-MS} experiment less time-consuming and/or less labor-intensive,
+	and finally investigate how the oxidation site on a peptide affects the relative frequency that this peptide fragments at a given bond.

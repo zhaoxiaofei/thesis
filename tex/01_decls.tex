@@ -1,0 +1,129 @@
+\newenvironment{tightcenter}{
+  \setlength\topsep{0pt}
+  \setlength\parskip{0pt}
+  \begin{center}
+}{
+  \end{center}
+}
+
+\DeclareMathOperator{\isdefinedas}{{\mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}}
+\DeclareMathOperator{\getsvalueof}{{\scalebox{1.16}{:}}{=}}
+
+\usepackage{etoolbox}
+%\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{width=17cm,compat=1.11}
+\usepackage{framed}
+\usepackage{ragged2e}
+\usepackage{ulem}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,shapes.geometric}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\usepackage{wasysym}
+\usepackage{pifont}
+\newcommand{\selectAnyFirst} {\mathit{1}} %{\text{\ding{172}}}
+\newcommand{\selectAnySecond}{\mathit{2}} %{\text{\ding{173}}}
+\newcommand{\selectAnyThird} {\mathit{3}}  %{\text{\ding{174}}}
+%\let\selectAnySecond{{\text{\ding{173}}}}
+%\let\selectAnyThird {{\text{\ding{174}}}}
+%\let\selectAll      {{\text{\ding{172}}}}
+
+\usepackage{siunitx}
+\usepackage[numbers]{natbib}
+\let\leftmoon\relax 
+\let\rightmoon\relax
+\let\fullmoon\relax
+\let\newmoon\relax
+\let\diameter\relax    
+%\usepackage{mathabx}
+\usepackage{booktabs}
+\usepackage{alltt}
+\usepackage{enumitem}
+\usepackage{tipa}
+\usepackage{calc}
+\usepackage{caption}
+\usepackage{bbm}
+\usepackage{stmaryrd}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}% http://ctan.org/pkg/algorithmicx
+	\newcommand{\algorithmautorefname}{Algorithm}
+	\algnewcommand{\IIf}[1]{\State\algorithmicif\ #1\ \algorithmicthen}
+	\algnewcommand{\EndIIf}{ \unskip\ \algorithmicend\ \algorithmicif}
+	\algnewcommand{\IElse}{~ \algorithmicelse}
+	\algnewcommand{\IWhile}[1]{\State\algorithmicwhile\ #1}
+	\algnewcommand{\EndIWhile}[1]{}
+	\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+	\renewcommand{\algorithmicensure}{\textbf{Output:}}
+	\algnewcommand\algorithmicprecondition{\textbf{Require:}}
+	\algnewcommand\algorithmicprecond{\item[\algorithmicprecondition]}
+\usepackage{float}
+	\newfloat{generalfloat}{thp}{aux}
+\usepackage{amsthm}
+	\newtheorem{theorem}{Theorem}
+	\newtheorem{corollary}{Corollary} %[theorem]
+	\newcommand{\corollaryautorefname}{Corollary}
+	\newtheorem{lemma}{Lemma}[theorem] %[theorem]
+	\newcommand{\lemmaautorefname}{Lemma}
+	\newtheorem{definition}{Definition} %[section]
+	\newtheorem{hypothesis}{Hypothesis} %[theorem]
+	\newtheorem{model}{Model} %[section]
+
+
+\renewcommand{\chapterautorefname}{Chapter}
+\renewcommand{\sectionautorefname}{Section}
+\renewcommand{\subsectionautorefname}{Subsection}
+
+
+\def \myframe#1 {#1} %{\frame{#1}}
+\newcommand{\HydrogenPeroxide}[1]{\textnormal{HOOH}}
+\newcommand{\WaterHOH}[1]{\textnormal{H$_2$O}}
+
+\DeclareMathOperator{\py}{\eta}
+\DeclareMathOperator{\ox}{ox}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+%\newcommand{\emptyseq}{()}
+
+% is -> A is a subclass   of B | All A123 are the subclasses of B (equivalence)
+% is <- A is a superclass of B | A is the superclass of all B123 (equivalence)
+% 
+% has-> is partially composed of | is exhaustively composed of
+% has<- is/are part of       | are exclusively part of
+% is a subclass of
+% is a superclass of
+% is composed of
+% is part of
+% is characterized by
+% is defined as
+% is referred to as
+% we define A as B
+%\DeclareMathOperator{\isdistas}{\overset{\scriptscriptstyle\text{\tiny approx}}{\sim}}
+
+\renewcommand\sout\relax
+
+\newcommand\encircle[1]{%
+  \tikz[baseline=(X.base)] 
+    \node (X) [draw, shape=circle, inner sep=0] {\strut #1};}
+    
+\usepackage{accents}
+\newlength{\dhatheight}
+\newcommand{\singlehat}[1]{\widehat{#1}}
+\newcommand{\doublehat}[1]{%
+    \settoheight{\dhatheight}{\ensuremath{\hat{#1}}}%
+    \addtolength{\dhatheight}{-0.35ex+0.10ex}%
+    \widehat{\vphantom{\rule{1pt}{\dhatheight}}%
+    \smash{\widehat{#1}}}}    
+    
+
+\usepackage{cleveref}
+
+\newlist{assumptions}{enumerate}{10}
+\setlist[assumptions]{label*=\arabic*}    
+\crefname{assumptionsi}{assumption}{assumptions}
+\Crefname{assumptionsi}{Assumption}{Assumptions}
+
+\usepackage[sort=standard,acronym,nomain,toc,section,nopostdot]{glossaries}
+
+%\DeclareFieldFormat{titlecase}{\MakeSentenceCase{#1}}

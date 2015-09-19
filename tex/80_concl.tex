@@ -1,0 +1,77 @@
+%--------1---------2---------3---------4---------5---------6---------7---------8---------9---------1---------2---------3---------4---------5---------6
+%23456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
+
+\glsunsetall
+\chapter{Conclusion}
+\label{chap:concl}
+\glsresetall
+
+% -> Why did I do it?
+The spatial resolution of the quantitation of oxidation by \gls{RP-MS} is low. 
+The low spatial resolution of such quantitations result in the low spatial resolution of the \gls{SASA} derived from such quantitations.
+The low spatial resolution of this \gls{SASA} results in the low spatial resolution at which protein folding is studied.
+% -> What did I do?
+We showed that targeted \gls{LC-MS/MS} can improve the spatial resolution of such quantitations of oxidation.
+Moreover, we designed an algorithm that automates such quantitations of oxidation at this improved spatial resolution.
+% -> How did I do it?
+\Gls{MS/MS} can fragment a \gls{mono-oxidized} peptide into the suffixes of this peptide.
+Thus, one such suffix is oxidized if and only if the oxidation site on this peptide is on this suffix.
+Thus, one such suffix of length \(i\) is oxidized if and only if this oxidation site is in the last \(i\) amino-acid residues of this peptide.
+Let \(\phi_i\) be the relative frequency that one such suffix of length \(i\) is oxidized.
+Without loss of generality, let \(i>j\).
+Then, \(\phi_i - \phi_{j}\) denotes the relative frequency that the oxidation site in a given \gls{mono-oxidized} peptide is between the \(i\)\textsuperscript{th}-last and \((j+1)\)\textsuperscript{th}-last amino-acid residues of this peptide.
+Thus, \(\phi_i - \phi_{j}\) can be used for quantitating oxidation at subpeptide level,
+	and \(\phi_i - \phi_{i-1}\) can be used for quantitating oxidation at residue level.
+% -> what proves that my result is good and correct?
+We evaluated our algorithm on an \gls{MS/MS} dataset, most of which is produced by six runs of targeted \gls{MS/MS}.
+Our algorithm quantitated oxidation near residue level.
+The extents of oxidation computed by our algorithm agree with the corresponding theoretical extents of oxidation.
+Thus, our algorithm is sufficiently correct.
+% -> limitations
+The throughput of targeted \gls{LC-MS/MS} is low.
+Also, the fragmentation chemistry in \gls{MS2} can result in a bias in the oxidation quantitated by our algorithm.
+However, our algorithm is still sufficiently useful.	
+
+% -> Why did I do it?
+However, random errors exist in such quantitation of oxidation. 
+Worse yet, only multiple repeated runs can empirically estimate such random errors, but we have only one run of targeted \gls{LC-MS/MS} per peptide.
+% -> What did I do?
+%Thus, we proposed an empirical formula.
+%Our empirical formula estimates such random errors in \(\phi_i\) even when the number of such runs is insufficient.
+%Moreover, our empirical formula is applicable to a \gls{AUCXIC} fraction which is a generalized version of \(\phi_i\).
+% -> How did I do it?
+To estimate such random errors using insufficient experiment data, we made some assumptions partially supported by evidence in the literature.
+Then, from these assumptions, we mathematically deduced an empirical formula.
+Our empirical formula estimates the random error in the \gls{AUCXIC} fraction that is calculated from only one run of \gls{LC-MS/MS}.
+A \gls{AUCXIC} fraction represents, in a sample of interest, the quantity of a type of molecules relative to another type of molecules.
+\gls{AUCXIC} fraction is a generalized version of \(\phi_i\).
+% -> what proves that my result is good and correct?
+Three nearly repeated runs of \gls{LC-MS/MS} confirmed that our empirical formula is sufficiently correct.
+% -> limitations
+These three runs are all performed by only a \gls{QTOF} mass spectrometer that analyzed only a non-complex sample.
+Multiple runs intrinsically provide more information than one run.
+Thus, one run generally cannot replace repeated runs.
+For example, multiple repeated runs respectively result in multiple estimates of the same expected value of a \gls{AUCXIC} fraction.
+Then, the average of these multiple estimates has less random error than any one of these multiple estimates.
+However, our empirical formula is still sufficiently useful.
+
+The throughput of targeted \gls{MS/MS} is lower than the throughput of \gls{MSE} by orders of magnitude.
+Thus, we hypothesized that \gls{MSE} can also improve the spatial resolution of \gls{RP-MS}.
+Unfortunately, an \gls{MSE} dataset shows that our hypothesis is likely to be wrong.
+Moreover, an additional \gls{MSE} dataset shows that our hypothesis is very likely to be wrong.
+		
+\Gls{MSE} does not seem to be able to achieve the purpose of improving the spatial resolution of \gls{RP-MS}.	
+Thus, in the future, we will try some alternative approaches for this purpose.
+Ideally, these alternative approaches should be neither labor-intensive nor time-consuming.
+For example, the following experimental methods all outperform \gls{MSE} in protein identification:
+	ion mobility spectrometry (IMS) assisted \gls{MSE} (HD-\gls{MSE}) \cite{distler2013drift},
+	ultra-definition \gls{MSE} (UD-\gls{MSE}) \cite{distler2013drift},
+	and multiplexed \gls{MS/MS} \cite{egertson2013multiplexed}.
+Thus, these methods can be the basis of these alternative approaches.
+
+In the future, we will also test our empirical formula on additional datasets.
+For example, one such additional dataset can be produced by a mass spectrometer of another type,
+	and this mass spectrometer can analyze a complex sample to produce this dataset.	
+In isobaric tags for relative and absolute quantitation (iTRAQ) experiments,	
+	the ratio of iTRAQ reporter ions is also a \gls{AUCXIC} fraction.
+Thus, our empirical formula has the potential to estimate the random error in iTRAQ when fewer-than-expected runs of \gls{LC-MS/MS} are performed.
